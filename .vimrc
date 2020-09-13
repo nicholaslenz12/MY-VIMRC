@@ -1,28 +1,31 @@
-" -----------------------------------------------------------------------------
-" File start
-" -----------------------------------------------------------------------------
-
+" =============================================================================
+" >>>> BASICS
+" =============================================================================
 set nocompatible
-filetype indent plugin on
 syntax on
+filetype indent plugin on
 packadd termdebug
 
-" -----------------------------------------------------------------------------
-" Color Theme
-" -----------------------------------------------------------------------------
 
-" --------
-" Monokai
-" --------
+" =============================================================================
+" >>>> COLOR THEME 
+" =============================================================================
 if !has("gui_running")
     set termguicolors
 endif
 colorscheme monokai
 
+" -----------------------------------------------------------------------------
+" >>>> MARGIN TWEAKS 
+" -----------------------------------------------------------------------------
+hi clear LineNr
+hi LineNr guifg=#95918E
+set guioptions=
 
-" -----------------------------------------------------------------------------
-" Sanity/Performance
-" -----------------------------------------------------------------------------
+
+" =============================================================================
+" >>>> SANITY/PERFORMANCE 
+" =============================================================================
 " When this option is set, the screen will not be redrawn while
 " executing macros, registers and other commands that have not been
 " typed. Also, updating the window title is postponed.
@@ -32,18 +35,28 @@ set lazyredraw
 " the file before switching buffers.
 set hidden
 
-
 " set path+=**
+
+" -----------------------------------------------------------------------------
+" >>>> WILDMENU
+" -----------------------------------------------------------------------------
 " Hitting Tab opens the wildmenu with recommended options
 " <TAB>/CTRL-N cycle down through options
 " <S-TAB>/CTRL-P cycle down through options
 set wildmenu
 highlight EndOfBuffer guifg=bg
 
+" So that wildmenu navigation is slightly more intuitive to me
+set wildcharm=<C-Z>
+cnoremap <expr> <up> wildmenumode() ? "\<left>" : "\<up>"
+cnoremap <expr> <down> wildmenumode() ? "\<right>" : "\<down>"
+cnoremap <expr> <left> wildmenumode() ? "\<up>" : "\<left>"
+cnoremap <expr> <right> wildmenumode() ? " \<bs>\<C-Z>" : "\<right>"
 
-" -----------------------------------------------------------------------------
-" Searching
-" -----------------------------------------------------------------------------
+
+" =============================================================================
+" >>>> SEARCHING 
+" =============================================================================
 " When there is a previous search pattern, highlight all its matches.
 set hlsearch
 
@@ -58,20 +71,25 @@ set ignorecase
 set smartcase
 
 
-" -----------------------------------------------------------------------------
-" Identation
-" -----------------------------------------------------------------------------
+" =============================================================================
+" >>>> INDENTATION 
+" =============================================================================
 " set backspace=indent,eol,start
 " set autoindent
 " set nostartofline
-" set shiftwidth=2
-" set softtabstop=2
+" << and >> command # of columns shifted
+set shiftwidth=2
+" How :
+" How many columns a tab counts for
+set tabstop=2
+
 " set expandtab
+" set softtabstop=2
 
 
-" -----------------------------------------------------------------------------
-" General Interaction
-" -----------------------------------------------------------------------------
+" =============================================================================
+" >>>> INTERACTION 
+" =============================================================================
 set showcmd
 
 " The value of this option influences when the last window will have a
@@ -97,9 +115,9 @@ set cmdheight=2
 set notimeout ttimeout ttimeoutlen=201
 
 
-" -----------------------------------------------------------------------------
-" Navigation
-" -----------------------------------------------------------------------------
+" =============================================================================
+" >>>> CODE NAVIGATION 
+" =============================================================================
 " Show the line and column number of the cursor position, separated by a
 " comma.  When there is room, the relative position of the displayed
 " text in the file is shown on the far right:
@@ -112,16 +130,9 @@ set colorcolumn=80
 " set cursorline
 
 
-" -----------------------------------------------------------------------------
-" Autocommands
-" -----------------------------------------------------------------------------
-autocmd FileType python map <buffer> <F9> :exec '!clear;python' shellescape(@%, 1)<CR>
-autocmd FileType python imap <buffer> <F9> <esc>:exec '!clear;python' shellescape(@%, 1)<CR>
-
-
-" -----------------------------------------------------------------------------
-" MAPS
-" -----------------------------------------------------------------------------
+" =============================================================================
+" >>>> KEYBINDINGS 
+" =============================================================================
 " Switch up the leader key
 map <Space> <Leader>
 
@@ -140,9 +151,9 @@ map <Leader>s :!
 noremap <Esc> <C-\><C-n>
 let g:termdebug_wide = 1
 
-" --------
-" Windows
-" --------
+" -----------------------------------------------------------------------------
+" >>>> WINDOW MANAGEMENT
+" -----------------------------------------------------------------------------
 " Cycle through open windows
 map <Tab> <C-W>w
 " Create window to the right
@@ -151,14 +162,9 @@ map <Tab> <C-W>w
 " Create window to the left
 " map _ <C-W>s<C-W><Down>
 
-" noremap <C-W>: <C-W>L
-" noremap <C-W>L <C-W>K
-" noremap <C-W>K <C-W>J
-" noremap <C-W>J <C-W>H
-
-" --------
-" Searching
-" --------
+" -----------------------------------------------------------------------------
+" >>>> SEARCHING
+" -----------------------------------------------------------------------------
 " Map <C-L> (redraw screen) to also turn off search highlighting until the
 " next search
 nnoremap <Leader>e :nohl<CR><C-L>
@@ -184,28 +190,24 @@ vnoremap // y/\V<C-r>=escape(@",'/\')<CR><CR>
 nnoremap <Leader>n :bp<Enter>
 nnoremap <Leader>p :bn<Enter>
 
-
-" -------
-" Editing
-" -------
+" -----------------------------------------------------------------------------
+" >>>> EDITING
+" -----------------------------------------------------------------------------
 " Folding text
 nnoremap <Leader>f za
 
-" Movement
-" noremap ; l
-" noremap l k
-" noremap k j
-" noremap j h
 
-
-" --------
-" F-Keys
-" --------
+" -----------------------------------------------------------------------------
+" >>>> F-Keys
+" -----------------------------------------------------------------------------
 " Quick buffer changing
 nnoremap <F2> :buffers<CR>:buffer<Space>
 
 " netrw
 map <F3> :Vexplore<CR>
+
+" notes
+map <F4> :e ~/.vim/notes.txt<CR>
 
 " Quick run python script
 nnoremap <buffer> <F9> :exec '!python' shellescape(@%, 1)<cr>
@@ -213,25 +215,10 @@ nnoremap <buffer> <F9> :exec '!python' shellescape(@%, 1)<cr>
 " Edit vimrc
 nnoremap <F5> :e $MYVIMRC<CR>
 
-" -----------------------------------------------------------------------------
-" Margin Tweaks
-" -----------------------------------------------------------------------------
-hi clear LineNr
-hi LineNr guifg=#95918E
-set guioptions=
 
-" -----------------------------------------------------------------------------
-" NETRW
-" -----------------------------------------------------------------------------
-let g:netrw_liststyle = 3
-let g:netrw_winsize = 25
-let g:netrw_browse_split = 1
-
-" -----------------------------------------------------------------------------
+" =============================================================================
 " Status Line
-" -----------------------------------------------------------------------------
-" Set working directory
-" autocmd BufEnter * silent! lcd %:p:h
+" =============================================================================
 
 " Statusline colors
 hi Base guibg=#2D2E27 guifg=#ffffff
@@ -335,12 +322,21 @@ augroup Statusline
   autocmd WinLeave,BufLeave * setlocal statusline=%!InactiveLine()
 augroup END
 
-" So that wildmenu navigation is slightly more intuitive to me
-set wildcharm=<C-Z>
-cnoremap <expr> <up> wildmenumode() ? "\<left>" : "\<up>"
-cnoremap <expr> <down> wildmenumode() ? "\<right>" : "\<down>"
-cnoremap <expr> <left> wildmenumode() ? "\<up>" : "\<left>"
-cnoremap <expr> <right> wildmenumode() ? " \<bs>\<C-Z>" : "\<right>"
+
+" =============================================================================
+" >>>> AUTOCOMMANDS 
+" =============================================================================
+autocmd FileType python map <buffer> <F9> :exec '!clear;python' shellescape(@%, 1)<CR>
+autocmd FileType python imap <buffer> <F9> <esc>:exec '!clear;python' shellescape(@%, 1)<CR>
+
+
+" =============================================================================
+" NETRW
+" =============================================================================
+let g:netrw_liststyle = 3
+let g:netrw_winsize = 25
+let g:netrw_browse_split = 1
+
 
 " =============================================================================
 " >>>> LATEX 
@@ -350,6 +346,7 @@ autocmd FileType tex nmap <buffer> <Leader>lx :!xelatex -pdf -synctex=1 %<CR>
 autocmd FileType tex nmap <buffer> <Leader>lc :!latexmk -c <CR>
 autocmd FileType tex nmap <buffer> <Leader>ls :!open -a Skim '%:r.pdf' <CR>
 
+
 " =============================================================================
 " >>>> DUKE ECE 
 " =============================================================================
@@ -357,7 +354,7 @@ autocmd FileType tex nmap <buffer> <Leader>ls :!open -a Skim '%:r.pdf' <CR>
 nnoremap <F6> :e scp://nwl4@vcm-181.vm.duke.edu/ece551/ <CR>
 
 " Compiling
-nnoremap <F10> :!gcc -o '%:r' -Wall -Wsign-compare -Wwrite-strings -Wtype-limits -Werror -pedantic -std=gnu99 -ggdb3 %<CR>
+nnoremap <F10> :!/usr/bin/gcc -o '%:r' -Wall -Wsign-compare -Wwrite-strings -Wtype-limits -Werror -pedantic -std=gnu99 -ggdb3 %<CR>
 
 " -fsanitize=address
 " nnoremap <F10> :!gcc -o '%:r' -Wall -Wsign-compare -Wwrite-strings -Wtype-limits -Werror -pedantic -std=gnu99 -fsanitize=address %<CR>
@@ -368,7 +365,7 @@ nnoremap <F22> :!./'%:r'<CR>
 " =============================================================================
 " >>>> PLUGINS 
 " =============================================================================
-
+"
 " -----------------------------------------------------------------------------
 " >>>> SYNTASTIC (SYNTAX CHECKER)
 " -----------------------------------------------------------------------------
@@ -405,8 +402,22 @@ let g:NERDDefaultAlign = 'left'
 " * in c */
 let g:NERDCompactSexyComs = 1
 
+
+" =============================================================================
+" >>>> QUARANTINE 
+" =============================================================================
+
+" -----------------------------------------------------------------------------
+" >>>> YOU COMPLETE ME
+" -----------------------------------------------------------------------------
 " function! FormatOnSave()
 "    :YcmCompleter Format
 " endfunction
 " autocmd BufWritePre *.h,*.c,*.cpp call FormatOnSave()
+
+" -----------------------------------------------------------------------------
+" >>>> GENERAL
+" -----------------------------------------------------------------------------
+" Set working directory
+" autocmd BufEnter * silent! lcd %:p:h
 
