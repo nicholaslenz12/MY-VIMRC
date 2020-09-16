@@ -187,8 +187,8 @@ nnoremap <Leader><Tab> :set invrelativenumber<CR>
 " Search using current word
 vnoremap // y/\V<C-r>=escape(@",'/\')<CR><CR>
 
-nnoremap <Leader>n :bp<Enter>
-nnoremap <Leader>p :bn<Enter>
+nnoremap <Leader>n :bn<Enter>
+nnoremap <Leader>p :bp<Enter>
 
 " -----------------------------------------------------------------------------
 " >>>> EDITING
