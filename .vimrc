@@ -146,7 +146,6 @@ nmap <Leader>q @q
 "Quickly save buffer
 " map <Leader>s :w<CR>
 map <Leader>s :!
-map <C-S> :w<CR>
 
 " So I can escape term-mode, gdb
 noremap <Esc> <C-\><C-n>
@@ -355,11 +354,11 @@ autocmd FileType tex nmap <buffer> <Leader>ls :!open -a Skim '%:r.pdf' <CR>
 nnoremap <F6> :e scp://nwl4@vcm-181.vm.duke.edu/ece551/ <CR>
 
 " Compiling
-nnoremap <F8> :!/usr/bin/gcc -o '%:r' -Wall -Wsign-compare -Wwrite-strings -Wtype-limits -Werror -pedantic -std=gnu99 -ggdb3 %<CR>
+nnoremap <F10> :!/usr/bin/gcc -o '%:r' -Wall -Wsign-compare -Wwrite-strings -Wtype-limits -Werror -pedantic -std=gnu99 -ggdb3 %<CR>
 
 " -fsanitize=address
 " nnoremap <F10> :!gcc -o '%:r' -Wall -Wsign-compare -Wwrite-strings -Wtype-limits -Werror -pedantic -std=gnu99 -fsanitize=address %<CR>
-nnoremap <F20> :!./'%:r'<CR>
+nnoremap <F22> :!./'%:r'<CR>
 "         F22 is Shift + F10
 
 
