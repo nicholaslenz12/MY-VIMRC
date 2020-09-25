@@ -329,6 +329,10 @@ augroup END
 autocmd FileType python map <buffer> <F9> :exec '!clear;python' shellescape(@%, 1)<CR>
 autocmd FileType python imap <buffer> <F9> <esc>:exec '!clear;python' shellescape(@%, 1)<CR>
 
+" =============================================================================
+" >>>> C FILES 
+" =============================================================================
+map <C-K> :py3f /usr/local/Cellar/clang-format/*/share/clang/clang-format.py<CR>
 
 " =============================================================================
 " NETRW
@@ -346,6 +350,10 @@ autocmd FileType tex nmap <buffer> <Leader>lx :!xelatex -pdf -synctex=1 %<CR>
 autocmd FileType tex nmap <buffer> <Leader>lc :!latexmk -c <CR>
 autocmd FileType tex nmap <buffer> <Leader>ls :!open -a Skim '%:r.pdf' <CR>
 
+function CompileOnSave()
+	:!latexmk -pdf %
+endfunction
+autocmd BufWritePost *.tex call CompileOnSave()
 
 " =============================================================================
 " >>>> DUKE ECE 
