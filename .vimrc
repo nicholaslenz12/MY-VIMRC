@@ -6,7 +6,6 @@ syntax on
 filetype indent plugin on
 packadd termdebug
 
-
 " =============================================================================
 " >>>> COLOR THEME 
 " =============================================================================
@@ -21,7 +20,6 @@ colorscheme monokai
 hi clear LineNr
 hi LineNr guifg=#95918E
 set guioptions=
-
 
 " =============================================================================
 " >>>> SANITY/PERFORMANCE 
@@ -53,7 +51,6 @@ cnoremap <expr> <down> wildmenumode() ? "\<right>" : "\<down>"
 cnoremap <expr> <left> wildmenumode() ? "\<up>" : "\<left>"
 cnoremap <expr> <right> wildmenumode() ? " \<bs>\<C-Z>" : "\<right>"
 
-
 " =============================================================================
 " >>>> SEARCHING 
 " =============================================================================
@@ -70,7 +67,6 @@ set hlsearch
 set ignorecase
 set smartcase
 
-
 " =============================================================================
 " >>>> INDENTATION 
 " =============================================================================
@@ -85,7 +81,6 @@ set tabstop=2
 
 " set expandtab
 " set softtabstop=2
-
 
 " =============================================================================
 " >>>> INTERACTION 
@@ -114,7 +109,6 @@ set cmdheight=2
 " Timeut of 201 ms.
 set notimeout ttimeout ttimeoutlen=201
 
-
 " =============================================================================
 " >>>> CODE NAVIGATION 
 " =============================================================================
@@ -129,10 +123,14 @@ set numberwidth=5
 set colorcolumn=80
 " set cursorline
 
+map <D-S-]> gt
+map <D-S-[> gT
 
 " =============================================================================
 " >>>> KEYBINDINGS 
 " =============================================================================
+vmap <C-C> "+y
+
 " Switch up the leader key
 map <Space> <Leader>
 
@@ -196,7 +194,6 @@ nnoremap <Leader>p :bp<Enter>
 " Folding text
 nnoremap <Leader>f za
 
-
 " -----------------------------------------------------------------------------
 " >>>> F-Keys
 " -----------------------------------------------------------------------------
@@ -215,113 +212,111 @@ nnoremap <buffer> <F9> :exec '!python' shellescape(@%, 1)<cr>
 " Edit vimrc
 nnoremap <F5> :e $MYVIMRC<CR>
 
-
 " =============================================================================
 " Status Line
 " =============================================================================
 
-" Statusline colors
-hi Base guibg=#2D2E27 guifg=#ffffff
-hi Mode guibg=#ae81ff guifg=#181824 gui=bold
-hi Filetype guibg=#2D2E27 guifg=#929dcb
-hi LineCol guibg=#ae81ff guifg=#181824 gui=bold
+" " Statusline colors
+" hi Base guibg=#2D2E27 guifg=#ffffff
+" hi Mode guibg=#ae81ff guifg=#181824 gui=bold
+" hi Filetype guibg=#2D2E27 guifg=#929dcb
+" hi LineCol guibg=#ae81ff guifg=#181824 gui=bold
 
-" Get current mode
-let g:currentmode={
-      \'n' : 'Normal ',
-      \'no' : 'N·Operator Pending ',
-      \'v' : 'Visual ',
-      \'V' : 'V·Line ',
-      \'^V' : 'V·Block ',
-      \'s' : 'Select ',
-      \'S': 'S·Line ',
-      \'^S' : 'S·Block ',
-      \'i' : 'Insert ',
-      \'R' : 'Replace ',
-      \'Rv' : 'V·Replace ',
-      \'c' : 'Command ',
-      \'cv' : 'Vim Ex ',
-      \'ce' : 'Ex ',
-      \'r' : 'Prompt ',
-      \'rm' : 'More ',
-      \'r?' : 'Confirm ',
-      \'!' : 'Shell ',
-      \'t' : 'Terminal '
-      \}
+" " Get current mode
+" let g:currentmode={
+"       \'n' : 'Normal ',
+"       \'no' : 'N·Operator Pending ',
+"       \'v' : 'Visual ',
+"       \'V' : 'V·Line ',
+"       \'^V' : 'V·Block ',
+"       \'s' : 'Select ',
+"       \'S': 'S·Line ',
+"       \'^S' : 'S·Block ',
+"       \'i' : 'Insert ',
+"       \'R' : 'Replace ',
+"       \'Rv' : 'V·Replace ',
+"       \'c' : 'Command ',
+"       \'cv' : 'Vim Ex ',
+"       \'ce' : 'Ex ',
+"       \'r' : 'Prompt ',
+"       \'rm' : 'More ',
+"       \'r?' : 'Confirm ',
+"       \'!' : 'Shell ',
+"       \'t' : 'Terminal '
+"       \}
 
-" Get current mode
-function! ModeCurrent() abort
-    let l:modecurrent = mode()
-    let l:modelist = toupper(get(g:currentmode, l:modecurrent, 'V·Block '))
-    let l:current_status_mode = l:modelist
-    return l:current_status_mode
-endfunction
+" " Get current mode
+" function! ModeCurrent() abort
+"     let l:modecurrent = mode()
+"     let l:modelist = toupper(get(g:currentmode, l:modecurrent, 'V·Block '))
+"     let l:current_status_mode = l:modelist
+"     return l:current_status_mode
+" endfunction
 
-" Get current filetype
-function! CheckFT(filetype)
-  if a:filetype == ''
-    return '-'
-  else
-    return tolower(a:filetype)
-  endif
-endfunction
+" " Get current filetype
+" function! CheckFT(filetype)
+"   if a:filetype == ''
+"     return '-'
+"   else
+"     return tolower(a:filetype)
+"   endif
+" endfunction
 
-" Check modified status
-function! CheckMod(modi)
-  if a:modi == 1
-    hi Modi guifg=#efefef guibg=#2D2E27
-    hi Filename guifg=#efefef guibg=#2D2E27
-    return expand('%:t').'*'
-  else
-    hi Modi guifg=#929dcb guibg=#2D2E27
-    hi Filename guifg=#929dcb guibg=#2D2E27
-    return expand('%:t')
-  endif
-endfunction
+" " Check modified status
+" function! CheckMod(modi)
+"   if a:modi == 1
+"     hi Modi guifg=#efefef guibg=#2D2E27
+"     hi Filename guifg=#efefef guibg=#2D2E27
+"     return expand('%:t').'*'
+"   else
+"     hi Modi guifg=#929dcb guibg=#2D2E27
+"     hi Filename guifg=#929dcb guibg=#2D2E27
+"     return expand('%:t')
+"   endif
+" endfunction
 
-" Set active statusline
-function! ActiveLine()
-  " Set empty statusline and colors
-  let statusline = ""
-  let statusline .= "%#Base#"
+" " Set active statusline
+" function! ActiveLine()
+"   " Set empty statusline and colors
+"   let statusline = ""
+"   let statusline .= "%#Base#"
 
-  " Current mode
-  let statusline .= "%#Mode# %{ModeCurrent()}"
+"   " Current mode
+"   let statusline .= "%#Mode# %{ModeCurrent()}"
 
-  let statusline .= "%#Base#"
+"   let statusline .= "%#Base#"
 
-  " Align items to right
-  let statusline .= "%="
+"   " Align items to right
+"   let statusline .= "%="
 
-  " Current modified status and filename
-  let statusline .= "%#Modi# %{CheckMod(&modified)} "
+"   " Current modified status and filename
+"   let statusline .= "%#Modi# %{CheckMod(&modified)} "
 
-  " Current filetype
-  let statusline .= "%#Filetype# %{CheckFT(&filetype)} "
+"   " Current filetype
+"   let statusline .= "%#Filetype# %{CheckFT(&filetype)} "
 
-  " Current line and column
-  let statusline .= "%#LineCol# Line %l, Column %c "
-  return statusline
-endfunction
+"   " Current line and column
+"   let statusline .= "%#LineCol# Line %l, Column %c "
+"   return statusline
+" endfunction
 
-function! InactiveLine()
-  " Set empty statusline and colors
-  let statusline = ""
-  let statusline .= "%#Base#"
+" function! InactiveLine()
+"   " Set empty statusline and colors
+"   let statusline = ""
+"   let statusline .= "%#Base#"
 
-  " Full path of the file
-  let statusline .= "%#Filename# %F "
+"   " Full path of the file
+"   let statusline .= "%#Filename# %F "
 
-  return statusline
-endfunction
+"   return statusline
+" endfunction
 
-" Change statusline automatically
-augroup Statusline
-  autocmd!
-  autocmd WinEnter,BufEnter * setlocal statusline=%!ActiveLine()
-  autocmd WinLeave,BufLeave * setlocal statusline=%!InactiveLine()
-augroup END
-
+" " Change statusline automatically
+" augroup Statusline
+"   autocmd!
+"   autocmd WinEnter,BufEnter * setlocal statusline=%!ActiveLine()
+"   autocmd WinLeave,BufLeave * setlocal statusline=%!InactiveLine()
+" augroup END
 
 " =============================================================================
 " >>>> AUTOCOMMANDS 
@@ -341,7 +336,6 @@ let g:netrw_liststyle = 3
 let g:netrw_winsize = 25
 let g:netrw_browse_split = 1
 
-
 " =============================================================================
 " >>>> LATEX 
 " =============================================================================
@@ -350,25 +344,25 @@ autocmd FileType tex nmap <buffer> <Leader>lx :!xelatex -pdf -synctex=1 %<CR>
 autocmd FileType tex nmap <buffer> <Leader>lc :!latexmk -c <CR>
 autocmd FileType tex nmap <buffer> <Leader>ls :!open -a Skim '%:r.pdf' <CR>
 
-function CompileOnSave()
-	:!latexmk -pdf %
-endfunction
-autocmd BufWritePost *.tex call CompileOnSave()
+" function CompileOnSave()
+"   :!latexmk -pdf %
+" endfunction
+" autocmd BufWritePost *.tex call CompileOnSave()
 
 " =============================================================================
 " >>>> DUKE ECE 
 " =============================================================================
 "  Open netrw for Duke VM
-nnoremap <F6> :e scp://nwl4@vcm-181.vm.duke.edu/ece551/ <CR>
+nnoremap <F6> :e scp://nwl4@vcm-181.vm.duke.edu/ece551/<CR>
 
 " Compiling
-nnoremap <F8> :!/usr/bin/gcc -o '%:r' -Wall -Wsign-compare -Wwrite-strings -Wtype-limits -Werror -pedantic -std=gnu99 -ggdb3 %<CR>
-
-" -fsanitize=address
-" nnoremap <F10> :!gcc -o '%:r' -Wall -Wsign-compare -Wwrite-strings -Wtype-limits -Werror -pedantic -std=gnu99 -fsanitize=address %<CR>
+autocmd FileType c nnoremap <buffer> <F8> :!/usr/bin/gcc -o '%:r'
+			\ -Wall -Wsign-compare -Wwrite-strings -Wtype-limits -Werror
+			\ -pedantic -std=gnu99 -ggdb3 %<CR>
+autocmd FileType cpp nnoremap <buffer> <F8> :!/usr/bin/g++ -o '%:r'
+			\	-Wall -Wsign-compare -Wwrite-strings -Wtype-limits -Werror
+			\ -pedantic -std=gnu++98 -ggdb3 %<CR>
 nnoremap <F20> :!./'%:r'<CR>
-"         F22 is Shift + F10
-
 
 " =============================================================================
 " >>>> PLUGINS 
@@ -410,22 +404,5 @@ let g:NERDDefaultAlign = 'left'
 " * in c */
 let g:NERDCompactSexyComs = 1
 
-
-" =============================================================================
-" >>>> QUARANTINE 
-" =============================================================================
-
-" -----------------------------------------------------------------------------
-" >>>> YOU COMPLETE ME
-" -----------------------------------------------------------------------------
-" function! FormatOnSave()
-"    :YcmCompleter Format
-" endfunction
-" autocmd BufWritePre *.h,*.c,*.cpp call FormatOnSave()
-
-" -----------------------------------------------------------------------------
-" >>>> GENERAL
-" -----------------------------------------------------------------------------
-" Set working directory
-" autocmd BufEnter * silent! lcd %:p:h
-
+let g:airline_extensions = []
+let g:airline#extensions#tabline#enabled = 1
