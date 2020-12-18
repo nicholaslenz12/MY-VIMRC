@@ -4,7 +4,20 @@
 set nocompatible
 syntax on
 filetype indent plugin on
-packadd termdebug
+
+" =============================================================================
+" >>>> LOAD PACKAGES IN OPT DIRECTORY
+" =============================================================================
+packadd! termdebug
+packadd! ultisnips
+packadd! nerdcommenter
+packadd! syntastic
+packadd! vim-airline
+packadd! vim-airline-themes
+packadd! vim-gitgutter
+packadd! vim-monokai
+packadd! vimwiki
+packadd! YouCompleteMe
 
 " =============================================================================
 " >>>> COLOR THEME 
@@ -32,8 +45,10 @@ set lazyredraw
 " So you can use :e ... to open a new file and you won't be required to save
 " the file before switching buffers.
 set hidden
-
 " set path+=**
+
+" Let's you actually use the delete key to delete text in insert mode...
+set backspace=indent,eol,start
 
 " -----------------------------------------------------------------------------
 " >>>> WILDMENU
@@ -70,12 +85,10 @@ set smartcase
 " =============================================================================
 " >>>> INDENTATION 
 " =============================================================================
-" set backspace=indent,eol,start
 " set autoindent
 " set nostartofline
 " << and >> command # of columns shifted
 set shiftwidth=2
-" How :
 " How many columns a tab counts for
 set tabstop=2
 
@@ -135,7 +148,6 @@ vmap <C-C> "+y
 map <Space> <Leader>
 
 " Inserting lines in normal mode
-nmap <S-CR> O<Esc>
 nmap <CR> o<Esc>
 
 " Faster replaying of macros in register w
@@ -146,7 +158,6 @@ nmap <Leader>q @q
 map <Leader>s :!
 
 " So I can escape term-mode, gdb
-noremap <Esc> <C-\><C-n>
 let g:termdebug_wide = 1
 
 " -----------------------------------------------------------------------------
@@ -357,11 +368,11 @@ nnoremap <F6> :e scp://nwl4@vcm-181.vm.duke.edu/ece551/<CR>
 
 " Compiling
 autocmd FileType c nnoremap <buffer> <F8> :!/usr/bin/gcc -o '%:r'
-			\ -Wall -Wsign-compare -Wwrite-strings -Wtype-limits -Werror
-			\ -pedantic -std=gnu99 -ggdb3 %<CR>
+      \ -Wall -Wsign-compare -Wwrite-strings -Wtype-limits -Werror
+      \ -pedantic -std=gnu99 -ggdb3 %<CR>
 autocmd FileType cpp nnoremap <buffer> <F8> :!/usr/bin/g++ -o '%:r'
-			\	-Wall -Wsign-compare -Wwrite-strings -Wtype-limits -Werror
-			\ -pedantic -std=gnu++98 -ggdb3 %<CR>
+      \	-Wall -Wsign-compare -Wwrite-strings -Wtype-limits -Werror
+      \ -pedantic -std=gnu++98 -ggdb3 %<CR>
 nnoremap <F20> :!./'%:r'<CR>
 
 " =============================================================================
@@ -396,8 +407,10 @@ let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
 " -----------------------------------------------------------------------------
 " Add spaces after comment delimiters by default
 let g:NERDSpaceDelims = 1
+
 " Align line-wise comment delimiters flush left instead of following code indentation
 let g:NERDDefaultAlign = 'left'
+
 " Use compact syntax for prettified multi-line comments
 " /* Hi There!
 " * This is a sexy comment
