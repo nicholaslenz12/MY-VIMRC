@@ -5,19 +5,29 @@ set nocompatible
 syntax on
 filetype indent plugin on
 
+set lazyredraw
+set hidden
+set backspace=indent,eol,start
+
 " =============================================================================
 " >>>> LOAD PACKAGES IN OPT DIRECTORY
 " =============================================================================
+" Built-in
 packadd! termdebug
-packadd! ultisnips
+
+" Sanity
+packadd! vim-monokai
 packadd! nerdcommenter
-packadd! syntastic
+packadd! ultisnips
+
+" Nice
+packadd! ale
+packadd! vimwiki
+packadd! vim-gitgutter
 packadd! vim-airline
 packadd! vim-airline-themes
-packadd! vim-gitgutter
-packadd! vim-monokai
-packadd! vimwiki
-packadd! YouCompleteMe
+packadd! vim-slime
+packadd! vim-ipython-cell
 
 " =============================================================================
 " >>>> COLOR THEME 
@@ -35,24 +45,8 @@ hi LineNr guifg=#95918E
 set guioptions=
 
 " =============================================================================
-" >>>> SANITY/PERFORMANCE 
-" =============================================================================
-" When this option is set, the screen will not be redrawn while
-" executing macros, registers and other commands that have not been
-" typed. Also, updating the window title is postponed.
-set lazyredraw
-
-" So you can use :e ... to open a new file and you won't be required to save
-" the file before switching buffers.
-set hidden
-" set path+=**
-
-" Let's you actually use the delete key to delete text in insert mode...
-set backspace=indent,eol,start
-
-" -----------------------------------------------------------------------------
 " >>>> WILDMENU
-" -----------------------------------------------------------------------------
+" =============================================================================
 " Hitting Tab opens the wildmenu with recommended options
 " <TAB>/CTRL-N cycle down through options
 " <S-TAB>/CTRL-P cycle down through options
@@ -71,41 +65,21 @@ cnoremap <expr> <right> wildmenumode() ? " \<bs>\<C-Z>" : "\<right>"
 " =============================================================================
 " When there is a previous search pattern, highlight all its matches.
 set hlsearch
-
-" pattern	'ignorecase'  'smartcase'	matches ~
-" foo	          off		-		foo
-" foo   	  on		-		foo Foo FOO
-" Foo   	  on		off		foo Foo FOO
-" Foo   	  on		on		    Foo
-" \cfoo	          -		-		foo Foo FOO
-" foo\C	          -		-		foo
 set ignorecase
 set smartcase
 
 " =============================================================================
 " >>>> INDENTATION 
 " =============================================================================
-" set autoindent
-" set nostartofline
-" << and >> command # of columns shifted
-set shiftwidth=2
-" How many columns a tab counts for
+set shiftwidth=2 " << and >> command # of columns shifted
 set tabstop=2
-
-" set expandtab
-" set softtabstop=2
 
 " =============================================================================
 " >>>> INTERACTION 
 " =============================================================================
 set showcmd
-
-" The value of this option influences when the last window will have a
-" status line:
-" 0: never
-" 1: only if there are at least two windows
-" 2: always
 set laststatus=2
+
 " Confirms if you want to q or e modified file
 set confirm
 
@@ -125,19 +99,13 @@ set notimeout ttimeout ttimeoutlen=201
 " =============================================================================
 " >>>> CODE NAVIGATION 
 " =============================================================================
-" Show the line and column number of the cursor position, separated by a
-" comma.  When there is room, the relative position of the displayed
-" text in the file is shown on the far right:
 " set ruler
 
 " Line numbers, minimum width, and color coloumn
 set number
 set numberwidth=5
 set colorcolumn=80
-" set cursorline
-
-map <D-S-]> gt
-map <D-S-[> gT
+set cursorline
 
 " =============================================================================
 " >>>> KEYBINDINGS 
@@ -152,9 +120,10 @@ nmap <CR> o<Esc>
 
 " Faster replaying of macros in register w
 nmap <Leader>q @q
+vmap <Leader>q :norm @q<CR>
+vmap . :norm .<CR>
 
 "Quickly save buffer
-" map <Leader>s :w<CR>
 map <Leader>s :!
 
 " So I can escape term-mode, gdb
@@ -165,11 +134,12 @@ let g:termdebug_wide = 1
 " -----------------------------------------------------------------------------
 " Cycle through open windows
 map <Tab> <C-W>w
+
 " Create window to the right
-" map <Bar> <C-W>v<C-W><Right>
+map <bar> <C-W>v<C-W><Right>
 
 " Create window to the left
-" map _ <C-W>s<C-W><Down>
+map _ <C-W>s<C-W><Down>
 
 " -----------------------------------------------------------------------------
 " >>>> SEARCHING
@@ -179,22 +149,10 @@ map <Tab> <C-W>w
 nnoremap <Leader>e :nohl<CR><C-L>
 
 " Quick find and replace
-" nnoremap <Leader>r :%s/\<<C-r><C-w>\>//g<Left><Left>
+nnoremap <Leader>r :%s/\<<C-r><C-w>\>//g<Left><Left>
 
 " Show relative line numbering
 nnoremap <Leader><Tab> :set invrelativenumber<CR>
-
-" Delete current word, enter insert mode
-" nnoremap <Leader>c ciw
-
-" Delete current word
-" nnoremap <Leader>d diw
-
-" Select current word
-" nnoremap <Leader>v viw
-
-" Search using current word
-vnoremap // y/\V<C-r>=escape(@",'/\')<CR><CR>
 
 nnoremap <Leader>n :bn<Enter>
 nnoremap <Leader>p :bp<Enter>
@@ -224,113 +182,7 @@ nnoremap <buffer> <F9> :exec '!python' shellescape(@%, 1)<cr>
 nnoremap <F5> :e $MYVIMRC<CR>
 
 " =============================================================================
-" Status Line
-" =============================================================================
-
-" " Statusline colors
-" hi Base guibg=#2D2E27 guifg=#ffffff
-" hi Mode guibg=#ae81ff guifg=#181824 gui=bold
-" hi Filetype guibg=#2D2E27 guifg=#929dcb
-" hi LineCol guibg=#ae81ff guifg=#181824 gui=bold
-
-" " Get current mode
-" let g:currentmode={
-"       \'n' : 'Normal ',
-"       \'no' : 'N·Operator Pending ',
-"       \'v' : 'Visual ',
-"       \'V' : 'V·Line ',
-"       \'^V' : 'V·Block ',
-"       \'s' : 'Select ',
-"       \'S': 'S·Line ',
-"       \'^S' : 'S·Block ',
-"       \'i' : 'Insert ',
-"       \'R' : 'Replace ',
-"       \'Rv' : 'V·Replace ',
-"       \'c' : 'Command ',
-"       \'cv' : 'Vim Ex ',
-"       \'ce' : 'Ex ',
-"       \'r' : 'Prompt ',
-"       \'rm' : 'More ',
-"       \'r?' : 'Confirm ',
-"       \'!' : 'Shell ',
-"       \'t' : 'Terminal '
-"       \}
-
-" " Get current mode
-" function! ModeCurrent() abort
-"     let l:modecurrent = mode()
-"     let l:modelist = toupper(get(g:currentmode, l:modecurrent, 'V·Block '))
-"     let l:current_status_mode = l:modelist
-"     return l:current_status_mode
-" endfunction
-
-" " Get current filetype
-" function! CheckFT(filetype)
-"   if a:filetype == ''
-"     return '-'
-"   else
-"     return tolower(a:filetype)
-"   endif
-" endfunction
-
-" " Check modified status
-" function! CheckMod(modi)
-"   if a:modi == 1
-"     hi Modi guifg=#efefef guibg=#2D2E27
-"     hi Filename guifg=#efefef guibg=#2D2E27
-"     return expand('%:t').'*'
-"   else
-"     hi Modi guifg=#929dcb guibg=#2D2E27
-"     hi Filename guifg=#929dcb guibg=#2D2E27
-"     return expand('%:t')
-"   endif
-" endfunction
-
-" " Set active statusline
-" function! ActiveLine()
-"   " Set empty statusline and colors
-"   let statusline = ""
-"   let statusline .= "%#Base#"
-
-"   " Current mode
-"   let statusline .= "%#Mode# %{ModeCurrent()}"
-
-"   let statusline .= "%#Base#"
-
-"   " Align items to right
-"   let statusline .= "%="
-
-"   " Current modified status and filename
-"   let statusline .= "%#Modi# %{CheckMod(&modified)} "
-
-"   " Current filetype
-"   let statusline .= "%#Filetype# %{CheckFT(&filetype)} "
-
-"   " Current line and column
-"   let statusline .= "%#LineCol# Line %l, Column %c "
-"   return statusline
-" endfunction
-
-" function! InactiveLine()
-"   " Set empty statusline and colors
-"   let statusline = ""
-"   let statusline .= "%#Base#"
-
-"   " Full path of the file
-"   let statusline .= "%#Filename# %F "
-
-"   return statusline
-" endfunction
-
-" " Change statusline automatically
-" augroup Statusline
-"   autocmd!
-"   autocmd WinEnter,BufEnter * setlocal statusline=%!ActiveLine()
-"   autocmd WinLeave,BufLeave * setlocal statusline=%!InactiveLine()
-" augroup END
-
-" =============================================================================
-" >>>> AUTOCOMMANDS 
+" >>>> PYTHON
 " =============================================================================
 autocmd FileType python map <buffer> <F9> :exec '!clear;python' shellescape(@%, 1)<CR>
 autocmd FileType python imap <buffer> <F9> <esc>:exec '!clear;python' shellescape(@%, 1)<CR>
@@ -378,44 +230,55 @@ nnoremap <F20> :!./'%:r'<CR>
 " =============================================================================
 " >>>> PLUGINS 
 " =============================================================================
-"
-" -----------------------------------------------------------------------------
-" >>>> SYNTASTIC (SYNTAX CHECKER)
-" -----------------------------------------------------------------------------
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
 " -----------------------------------------------------------------------------
 " >>>> DEOPLETE (COMPLETION)
 " -----------------------------------------------------------------------------
+" CONFIG
 let g:deoplete#enable_at_startup = 1
 
 " -----------------------------------------------------------------------------
 " >>>> ULTISNIPS (SNIPPETS)
 " -----------------------------------------------------------------------------
+" MAPPINGS
 let g:UltiSnipsExpandTrigger="<C-x>"
-" let g:UltiSnipsExpandTrigger="<C-X>"
 let g:UltiSnipsJumpForwardTrigger="<Tab>"
-" let g:UltiSnipsJumpForwardTrigger="<C-b>"
 let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
-" let g:UltiSnipsJumpBackwardTrigger="<C-v>"
 
 " -----------------------------------------------------------------------------
 " >>>> NERDCOMMENTER (COMMENTING)
 " -----------------------------------------------------------------------------
+" CONFIG
 " Add spaces after comment delimiters by default
 let g:NERDSpaceDelims = 1
 
 " Align line-wise comment delimiters flush left instead of following code indentation
 let g:NERDDefaultAlign = 'left'
 
-" Use compact syntax for prettified multi-line comments
-" /* Hi There!
-" * This is a sexy comment
-" * in c */
-let g:NERDCompactSexyComs = 1
-
 let g:airline_extensions = []
 let g:airline#extensions#tabline#enabled = 1
+
+" -----------------------------------------------------------------------------
+" >>>> VIM SLIME / VIM IPYTHON CELL
+" -----------------------------------------------------------------------------
+" CONFIG
+let g:slime_python_ipython = 1
+let g:slime_target = "tmux"
+let g:slime_default_config = {
+	\ "socket_name": "default", "target_pane": "{last}"}
+let g:slime_dont_ask_default = 1
+
+" MAPPINGS
+nnoremap <Leader>i :IPythonCellExecuteCellJump<CR>
+
+" -----------------------------------------------------------------------------
+" >>>> ALE 
+" -----------------------------------------------------------------------------
+" CONFIG
+let g:ale_fix_on_save = 1
+let g:ale_fixers = ['remove_trailing_lines', 'trim_whitespace']
+let g:ale_fixers = {'python': ['yapf', 'black', 'autopep8', 'isort'],
+			\ 'c': ['clang-format'], 
+			\ 'cpp': ['clang-format']}
+
+" MAPPINGS
+nmap <LEADER>cf :ALEFix<CR>
