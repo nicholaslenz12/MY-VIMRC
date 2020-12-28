@@ -10,27 +10,52 @@ set hidden
 set backspace=indent,eol,start
 
 " =============================================================================
-" >>>> LOAD PACKAGES IN OPT DIRECTORY
+" >>>> PACKAGES
 " =============================================================================
 " Built-in
 packadd! termdebug
 
-" Sanity
-packadd! vim-monokai
-packadd! nerdcommenter
-packadd! ultisnips
+" Downloads vim-plug (if DNE) and installs plugins
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
-" Nice
-packadd! ale
-packadd! vimwiki
-packadd! vim-gitgutter
-packadd! vim-airline
-packadd! vim-airline-themes
-packadd! vim-slime
-packadd! vim-ipython-cell
+" Plugins will be downloaded under the specified directory.
+call plug#begin('~/.vim/plugged')
+
+" Declare the list of plugins.
+Plug 'crusoexia/vim-monokai'
+Plug 'preservim/nerdcommenter'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+
+Plug 'junegunn/fzf' "
+Plug 'dense-analysis/ale' "
+Plug 'vimwiki/vimwiki' "
+Plug 'airblade/vim-gitgutter' "
+Plug 'vim-airline/vim-airline' "
+Plug 'vim-airline/vim-airline-themes' "
+Plug 'jpalardy/vim-slime'
+Plug 'hanschen/vim-ipython-cell'
+
+Plug 'sheerun/vim-polyglot'
+
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+
+" List ends here. Plugins become visible to Vim after this call.
+call plug#end()
+
 
 " =============================================================================
-" >>>> COLOR THEME 
+" >>>> COLOR THEME
 " =============================================================================
 if !has("gui_running")
     set termguicolors
@@ -38,7 +63,7 @@ endif
 colorscheme monokai
 
 " -----------------------------------------------------------------------------
-" >>>> MARGIN TWEAKS 
+" >>>> MARGIN TWEAKS
 " -----------------------------------------------------------------------------
 hi clear LineNr
 hi LineNr guifg=#95918E
@@ -61,7 +86,7 @@ cnoremap <expr> <left> wildmenumode() ? "\<up>" : "\<left>"
 cnoremap <expr> <right> wildmenumode() ? " \<bs>\<C-Z>" : "\<right>"
 
 " =============================================================================
-" >>>> SEARCHING 
+" >>>> SEARCHING
 " =============================================================================
 " When there is a previous search pattern, highlight all its matches.
 set hlsearch
@@ -69,13 +94,13 @@ set ignorecase
 set smartcase
 
 " =============================================================================
-" >>>> INDENTATION 
+" >>>> INDENTATION
 " =============================================================================
 set shiftwidth=2 " << and >> command # of columns shifted
 set tabstop=2
 
 " =============================================================================
-" >>>> INTERACTION 
+" >>>> INTERACTION
 " =============================================================================
 set showcmd
 set laststatus=2
@@ -96,8 +121,12 @@ set cmdheight=2
 " Timeut of 201 ms.
 set notimeout ttimeout ttimeoutlen=201
 
+" Interact with system clipboard
+set clipboard+=unnamed
+set clipboard+=unnamedplus
+
 " =============================================================================
-" >>>> CODE NAVIGATION 
+" >>>> CODE NAVIGATION
 " =============================================================================
 " set ruler
 
@@ -108,10 +137,8 @@ set colorcolumn=80
 set cursorline
 
 " =============================================================================
-" >>>> KEYBINDINGS 
+" >>>> KEYBINDINGS
 " =============================================================================
-vmap <C-C> "+y
-
 " Switch up the leader key
 map <Space> <Leader>
 
@@ -128,6 +155,9 @@ map <Leader>s :!
 
 " So I can escape term-mode, gdb
 let g:termdebug_wide = 1
+
+" Fast run command for current line
+nnoremap <leader>cr yy:<C-r>"<CR>
 
 " -----------------------------------------------------------------------------
 " >>>> WINDOW MANAGEMENT
@@ -163,6 +193,14 @@ nnoremap <Leader>p :bp<Enter>
 " Folding text
 nnoremap <Leader>f za
 
+" dd without overwriting register
+nmap <Leader>dd "_dd
+
+" Map Y to act like D and C, i.e. to yank until EOL, rather than act as yy,
+" which is the default (source: https://vim.fandom.com/wiki/Example_vimrc)
+map Y y$
+map D d$
+
 " -----------------------------------------------------------------------------
 " >>>> F-Keys
 " -----------------------------------------------------------------------------
@@ -188,7 +226,7 @@ autocmd FileType python map <buffer> <F9> :exec '!clear;python' shellescape(@%, 
 autocmd FileType python imap <buffer> <F9> <esc>:exec '!clear;python' shellescape(@%, 1)<CR>
 
 " =============================================================================
-" >>>> C FILES 
+" >>>> C FILES
 " =============================================================================
 map <C-K> :py3f /usr/local/Cellar/clang-format/*/share/clang/clang-format.py<CR>
 
@@ -200,7 +238,7 @@ let g:netrw_winsize = 25
 let g:netrw_browse_split = 1
 
 " =============================================================================
-" >>>> LATEX 
+" >>>> LATEX
 " =============================================================================
 autocmd FileType tex nmap <buffer> <Leader>lm :!latexmk -pdf -synctex=1 %<CR>
 autocmd FileType tex nmap <buffer> <Leader>lx :!xelatex -pdf -synctex=1 %<CR>
@@ -213,45 +251,38 @@ autocmd FileType tex nmap <buffer> <Leader>ls :!open -a Skim '%:r.pdf' <CR>
 " autocmd BufWritePost *.tex call CompileOnSave()
 
 " =============================================================================
-" >>>> DUKE ECE 
+" >>>> DUKE ECE
 " =============================================================================
 "  Open netrw for Duke VM
 nnoremap <F6> :e scp://nwl4@vcm-181.vm.duke.edu/ece551/<CR>
 
 " Compiling
 autocmd FileType c nnoremap <buffer> <F8> :!/usr/bin/gcc -o '%:r'
-      \ -Wall -Wsign-compare -Wwrite-strings -Wtype-limits -Werror
-      \ -pedantic -std=gnu99 -ggdb3 %<CR>
+    \ -Wall -Wsign-compare -Wwrite-strings -Wtype-limits -Werror
+    \ -pedantic -std=gnu99 -ggdb3 %<CR>
 autocmd FileType cpp nnoremap <buffer> <F8> :!/usr/bin/g++ -o '%:r'
-      \	-Wall -Wsign-compare -Wwrite-strings -Wtype-limits -Werror
-      \ -pedantic -std=gnu++98 -ggdb3 %<CR>
+    \ -Wall -Wsign-compare -Wwrite-strings -Wtype-limits -Werror
+    \ -pedantic -std=gnu++98 -ggdb3 %<CR>
 nnoremap <F20> :!./'%:r'<CR>
 
 " =============================================================================
-" >>>> PLUGINS 
+" >>>> PLUGINS
 " =============================================================================
 " -----------------------------------------------------------------------------
-" >>>> DEOPLETE (COMPLETION)
+" >>>> DEOPLETE
 " -----------------------------------------------------------------------------
 " CONFIG
 let g:deoplete#enable_at_startup = 1
 
 " -----------------------------------------------------------------------------
-" >>>> ULTISNIPS (SNIPPETS)
-" -----------------------------------------------------------------------------
-" MAPPINGS
-let g:UltiSnipsExpandTrigger="<C-x>"
-let g:UltiSnipsJumpForwardTrigger="<Tab>"
-let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
-
-" -----------------------------------------------------------------------------
-" >>>> NERDCOMMENTER (COMMENTING)
+" >>>> NERDCOMMENTER
 " -----------------------------------------------------------------------------
 " CONFIG
 " Add spaces after comment delimiters by default
 let g:NERDSpaceDelims = 1
 
-" Align line-wise comment delimiters flush left instead of following code indentation
+" Align line-wise comment delimiters flush left instead of following code
+" indentation.
 let g:NERDDefaultAlign = 'left'
 
 let g:airline_extensions = []
@@ -264,21 +295,28 @@ let g:airline#extensions#tabline#enabled = 1
 let g:slime_python_ipython = 1
 let g:slime_target = "tmux"
 let g:slime_default_config = {
-	\ "socket_name": "default", "target_pane": "{last}"}
+    \ "socket_name": "default", "target_pane": "{last}"}
 let g:slime_dont_ask_default = 1
 
 " MAPPINGS
 nnoremap <Leader>i :IPythonCellExecuteCellJump<CR>
 
 " -----------------------------------------------------------------------------
-" >>>> ALE 
+" >>>> ALE
 " -----------------------------------------------------------------------------
 " CONFIG
 let g:ale_fix_on_save = 1
-let g:ale_fixers = ['remove_trailing_lines', 'trim_whitespace']
-let g:ale_fixers = {'python': ['yapf', 'black', 'autopep8', 'isort'],
-			\ 'c': ['clang-format'], 
-			\ 'cpp': ['clang-format']}
+let g:ale_fixers = {
+    \ '*': ['remove_trailing_lines', 'trim_whitespace'],
+    \ 'python': ['yapf', 'black', 'autopep8', 'isort'],
+    \ 'c': ['clang-format'],
+    \ 'cpp': ['clang-format']}
 
 " MAPPINGS
 nmap <LEADER>cf :ALEFix<CR>
+
+" -----------------------------------------------------------------------------
+" >>>> FZF
+" -----------------------------------------------------------------------------
+" MAPPINGS
+nnoremap <Leader>g :FZF<CR>
