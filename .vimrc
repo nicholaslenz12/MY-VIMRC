@@ -38,9 +38,13 @@ Plug 'airblade/vim-gitgutter' "
 Plug 'vim-airline/vim-airline' "
 Plug 'vim-airline/vim-airline-themes' "
 Plug 'jpalardy/vim-slime'
-Plug 'hanschen/vim-ipython-cell'
 
+" Languages
 Plug 'sheerun/vim-polyglot'
+
+" Python
+Plug 'davidhalter/jedi-vim'
+Plug 'hanschen/vim-ipython-cell', { 'for': 'python' }
 
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -201,6 +205,9 @@ nmap <Leader>dd "_dd
 map Y y$
 map D d$
 
+" See http://vimcasts.org/episodes/show-invisibles/
+set listchars=tab:▸\ ,eol:¬,trail:·
+
 " -----------------------------------------------------------------------------
 " >>>> F-Keys
 " -----------------------------------------------------------------------------
@@ -209,9 +216,6 @@ nnoremap <F2> :buffers<CR>:buffer<Space>
 
 " netrw
 map <F3> :Vexplore<CR>
-
-" notes
-map <F4> :e ~/.vim/notes.txt<CR>
 
 " Quick run python script
 nnoremap <buffer> <F9> :exec '!python' shellescape(@%, 1)<cr>
@@ -282,11 +286,13 @@ let g:deoplete#enable_at_startup = 1
 let g:NERDSpaceDelims = 1
 
 " Align line-wise comment delimiters flush left instead of following code
-" indentation.
+" indentation. Add comment symbol to all lines.
 let g:NERDDefaultAlign = 'left'
+let g:NERDCommentEmptyLines = 1
 
 let g:airline_extensions = []
 let g:airline#extensions#tabline#enabled = 1
+
 
 " -----------------------------------------------------------------------------
 " >>>> VIM SLIME / VIM IPYTHON CELL
@@ -320,3 +326,14 @@ nmap <LEADER>cf :ALEFix<CR>
 " -----------------------------------------------------------------------------
 " MAPPINGS
 nnoremap <Leader>g :FZF<CR>
+
+let wiki = {}
+let wiki.nested_syntaxes = {'python': 'python',
+			\ 'c++': 'cpp'}
+let g:vimwiki_list = [wiki]
+
+if has("nvim")
+  autocmd TermOpen * setlocal nonumber
+else
+  autocmd TerminalOpen * setlocal nonumber
+endif
