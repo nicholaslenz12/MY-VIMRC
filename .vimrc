@@ -258,7 +258,7 @@ autocmd FileType tex nmap <buffer> <Leader>ls :!open -a Skim '%:r.pdf' <CR>
 " >>>> DUKE ECE
 " =============================================================================
 "  Open netrw for Duke VM
-nnoremap <F6> :e scp://nwl4@vcm-181.vm.duke.edu/ece551/<CR>
+nnoremap <F6> :e scp://nwl4@vcm-5185.vm.duke.edu/<CR>
 
 " Compiling
 autocmd FileType c nnoremap <buffer> <F8> :!/usr/bin/gcc -o '%:r'
