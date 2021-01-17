@@ -38,7 +38,9 @@ Plug 'airblade/vim-gitgutter' "
 Plug 'vim-airline/vim-airline' "
 Plug 'vim-airline/vim-airline-themes' "
 Plug 'jpalardy/vim-slime'
+
 Plug 'jiangmiao/auto-pairs'
+Plug 'majutsushi/tagbar'
 
 " Languages
 Plug 'sheerun/vim-polyglot'
