@@ -4,6 +4,7 @@
 set nocompatible
 syntax on
 filetype indent plugin on
+set omnifunc=syntaxcomplete#Complete " Completion
 
 set lazyredraw
 set hidden
@@ -46,7 +47,6 @@ Plug 'majutsushi/tagbar'
 Plug 'sheerun/vim-polyglot'
 
 " Python
-Plug 'davidhalter/jedi-vim'
 Plug 'hanschen/vim-ipython-cell', { 'for': 'python' }
 
 if has('nvim')
