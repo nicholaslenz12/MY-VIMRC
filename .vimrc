@@ -33,15 +33,26 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
 Plug 'junegunn/fzf' "
-Plug 'dense-analysis/ale' "
+Plug 'dense-analysis/ale', { 'on': [] }
 Plug 'vimwiki/vimwiki' "
 Plug 'airblade/vim-gitgutter' "
 Plug 'vim-airline/vim-airline' "
 Plug 'vim-airline/vim-airline-themes' "
 Plug 'jpalardy/vim-slime'
 
-Plug 'jiangmiao/auto-pairs'
 Plug 'majutsushi/tagbar'
+
+" COC
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+" ECE 651
+Plug 'preservim/nerdtree'
+Plug 'tpope/vim-projectionist'
+Plug 'https://github.com/vim-scripts/DoxygenToolkit.vim'
+Plug 'ervandew/supertab'
+
+" https://github.com/liuchengxu/vim-which-key for lazy load
+Plug 'liuchengxu/vim-which-key'
 
 " Languages
 Plug 'sheerun/vim-polyglot'
@@ -50,9 +61,9 @@ Plug 'sheerun/vim-polyglot'
 Plug 'hanschen/vim-ipython-cell', { 'for': 'python' }
 
 if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins', 'on': [] }
 else
-  Plug 'Shougo/deoplete.nvim'
+  Plug 'Shougo/deoplete.nvim', { 'on': [] }
   Plug 'roxma/nvim-yarp'
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
@@ -126,11 +137,11 @@ set mouse=a
 set cmdheight=2
 
 " Timeut of 201 ms.
-set notimeout ttimeout ttimeoutlen=201
+" set notimeout ttimeout ttimeoutlen=201
 
 " Interact with system clipboard
 set clipboard+=unnamed
-set clipboard+=unnamedplus
+" set clipboard+=unnamedplus
 
 " =============================================================================
 " >>>> CODE NAVIGATION
@@ -151,6 +162,7 @@ map <Space> <Leader>
 
 " Inserting lines in normal mode
 nmap <CR> o<Esc>
+autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
 
 " Faster replaying of macros in register w
 nmap <Leader>q @q
@@ -163,8 +175,9 @@ map <Leader>s :!
 " So I can escape term-mode, gdb
 let g:termdebug_wide = 1
 
-" Fast run command for current line
-nnoremap <leader>cr yy:<C-r>"<CR>
+" Fast run commands for current line
+nnoremap <leader>cr yy:<C-r>"<CR> " colon command
+nnoremap <leader>ce yy:!<C-r>"<CR> " shell command
 
 " -----------------------------------------------------------------------------
 " >>>> WINDOW MANAGEMENT
@@ -186,13 +199,16 @@ map _ <C-W>s<C-W><Down>
 nnoremap <Leader>e :nohl<CR><C-L>
 
 " Quick find and replace
-nnoremap <Leader>r :%s/\<<C-r><C-w>\>//g<Left><Left>
+nnoremap <Leader>rr :%s/\<<C-r><C-w>\>//g<Left><Left>
 
 " Show relative line numbering
 nnoremap <Leader><Tab> :set invrelativenumber<CR>
 
-nnoremap <Leader>n :bn<Enter>
-nnoremap <Leader>p :bp<Enter>
+nnoremap <C-N> :bnext<Enter>
+nnoremap <C-P> :bprevious<Enter>
+
+nnoremap <Leader>n :tabnext<Enter>
+nnoremap <Leader>p :tabprevious<Enter>
 
 " -----------------------------------------------------------------------------
 " >>>> EDITING
@@ -247,15 +263,10 @@ let g:netrw_browse_split = 1
 " =============================================================================
 " >>>> LATEX
 " =============================================================================
-autocmd FileType tex nmap <buffer> <Leader>lm :!latexmk -pdf -synctex=1 %<CR>
-autocmd FileType tex nmap <buffer> <Leader>lx :!xelatex -pdf -synctex=1 %<CR>
-autocmd FileType tex nmap <buffer> <Leader>lc :!latexmk -c <CR>
-autocmd FileType tex nmap <buffer> <Leader>ls :!open -a Skim '%:r.pdf' <CR>
-
-" function CompileOnSave()
-"   :!latexmk -pdf %
-" endfunction
-" autocmd BufWritePost *.tex call CompileOnSave()
+autocmd FileType tex nmap <buffer> <Leader>tl :!latexmk -pdf -synctex=1 %<CR>
+autocmd FileType tex nmap <buffer> <Leader>tx :!xelatex -pdf -synctex=1 %<CR>
+autocmd FileType tex nmap <buffer> <Leader>tc :!latexmk -c <CR>
+autocmd FileType tex nmap <buffer> <Leader>ts :!open -a Skim '%:r.pdf' <CR>
 
 " =============================================================================
 " >>>> DUKE ECE
@@ -313,22 +324,24 @@ nnoremap <Leader>i :IPythonCellExecuteCellJump<CR>
 " -----------------------------------------------------------------------------
 " >>>> ALE
 " -----------------------------------------------------------------------------
-" CONFIG
-let g:ale_fix_on_save = 1
-let g:ale_fixers = {
-    \ '*': ['remove_trailing_lines', 'trim_whitespace'],
-    \ 'python': ['yapf', 'black', 'autopep8', 'isort'],
-    \ 'c': ['clang-format'],
-    \ 'cpp': ['clang-format']}
-
-" MAPPINGS
-nmap <LEADER>cf :ALEFix<CR>
+" " CONFIG
+" let g:ale_fix_on_save = 1
+" let g:ale_fixers = {
+"     \ '*': ['remove_trailing_lines', 'trim_whitespace'],
+"     \ 'python': ['yapf', 'black', 'autopep8', 'isort'],
+"     \ 'c': ['clang-format'],
+"     \ 'cpp': ['clang-format']}
+" 
+" let g:ale_java_eclipselsp_path = '/home/nicholas/eclipse.jdt.ls'
+" 
+" " MAPPINGS
+" nmap <LEADER>cf :ALEFix<CR>
 
 " -----------------------------------------------------------------------------
 " >>>> FZF
 " -----------------------------------------------------------------------------
 " MAPPINGS
-nnoremap <Leader>g :FZF<CR>
+nnoremap <Leader>ff :FZF<CR>
 
 let wiki = {}
 let wiki.nested_syntaxes = {'python': 'python',
@@ -340,3 +353,38 @@ if has("nvim")
 else
   autocmd TerminalOpen * setlocal nonumber
 endif
+
+" -----------------------------------------------------------------------------
+" >>>> COC
+" -----------------------------------------------------------------------------
+nmap <Leader>ld <Plug>(coc-definition)
+nmap <Leader>lr <Plug>(coc-references)
+nmap <Leader>ln <Plug>(coc-rename)
+
+xmap <leader>la  <Plug>(coc-codeaction-selected)
+nmap <leader>la  <Plug>(coc-codeaction)
+
+" -----------------------------------------------------------------------------
+" >>>> Projectionist
+" -----------------------------------------------------------------------------
+nnoremap <Leader>gt :A<CR>
+
+" Skeleton
+autocmd BufNewFile */src/test/*.java :call JavaSkeleton('skeleton_junit')
+autocmd BufNewFile */src/main/*.java :call JavaSkeleton('skeleton_java')
+
+function! JavaSkeleton(filename)
+  execute ':r ~/vim/' . a:filename
+  :.,$s/____/\=expand('%:t:r')/g
+endfunction
+
+function! TellCoverage()
+  " :!~/Desktop/ece651-spr21-nwl4-hwk1/coverage_summary.sh > /dev/null 2>&1
+  :!~/Desktop/ece651-spr21-nwl4-hwk1/coverage_summary.sh
+  :!cat ~/Desktop/ece651-spr21-nwl4-hwk1/coverage.txt
+endfunction
+
+nmap <Leader>ct :call TellCoverage()<CR>
+nmap <Leader>cd :Dox<CR>
+
+let g:SuperTabDefaultCompletionType = "<c-n>"
