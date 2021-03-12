@@ -59,6 +59,7 @@ Plug 'sheerun/vim-polyglot'
 
 " Python
 Plug 'hanschen/vim-ipython-cell', { 'for': 'python' }
+Plug 'pixelneo/vim-python-docstring'
 
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins', 'on': [] }
@@ -385,6 +386,7 @@ function! TellCoverage()
 endfunction
 
 nmap <Leader>ct :call TellCoverage()<CR>
-nmap <Leader>cd :Dox<CR>
+autocmd FileType java nmap <Leader>cd :Dox<CR>
+autocmd FileType python nmap <Leader>cd :Docstring<CR>
 
 let g:SuperTabDefaultCompletionType = "<c-n>"
