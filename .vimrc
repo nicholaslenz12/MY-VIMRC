@@ -32,7 +32,9 @@ Plug 'preservim/nerdcommenter'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
-Plug 'junegunn/fzf' "
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
 Plug 'dense-analysis/ale', { 'on': [] }
 Plug 'vimwiki/vimwiki' "
 Plug 'airblade/vim-gitgutter' "
@@ -281,7 +283,7 @@ autocmd FileType c nnoremap <buffer> <F8> :!/usr/bin/gcc -o '%:r'
     \ -pedantic -std=gnu99 -ggdb3 %<CR>
 autocmd FileType cpp nnoremap <buffer> <F8> :!/usr/bin/g++ -o '%:r'
     \ -Wall -Wsign-compare -Wwrite-strings -Wtype-limits -Werror
-    \ -pedantic -std=gnu++98 -ggdb3 %<CR>
+    \ -pedantic -std=gnu++11 -ggdb3 %<CR>
 nnoremap <F20> :!./'%:r'<CR>
 
 " =============================================================================
@@ -342,7 +344,9 @@ nnoremap <Leader>i :IPythonCellExecuteCellJump<CR>
 " >>>> FZF
 " -----------------------------------------------------------------------------
 " MAPPINGS
-nnoremap <Leader>ff :FZF<CR>
+nnoremap <Leader>ff :Files<CR>
+nnoremap <Leader>gf :GFiles --cached --others<CR>
+nnoremap <Leader>rg :Rg<CR>
 
 let wiki = {}
 let wiki.nested_syntaxes = {'python': 'python',
@@ -390,3 +394,18 @@ autocmd FileType java nmap <Leader>cd :Dox<CR>
 autocmd FileType python nmap <Leader>cd :Docstring<CR>
 
 let g:SuperTabDefaultCompletionType = "<c-n>"
+
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
