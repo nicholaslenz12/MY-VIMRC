@@ -52,6 +52,8 @@ Plug 'preservim/nerdtree'
 Plug 'tpope/vim-projectionist'
 Plug 'https://github.com/vim-scripts/DoxygenToolkit.vim'
 Plug 'ervandew/supertab'
+Plug 'tpope/vim-fugitive'
+Plug 'puremourning/vimspector'
 
 " https://github.com/liuchengxu/vim-which-key for lazy load
 Plug 'liuchengxu/vim-which-key'
@@ -71,6 +73,7 @@ else
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
 
+Plug 'luochen1990/rainbow'
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
@@ -345,7 +348,8 @@ nnoremap <Leader>i :IPythonCellExecuteCellJump<CR>
 " -----------------------------------------------------------------------------
 " MAPPINGS
 nnoremap <Leader>ff :Files<CR>
-nnoremap <Leader>gf :GFiles --cached --others<CR>
+nnoremap <Leader>gf :GFiles --cached --others --exclude-standard<CR>
+" nnoremap <Leader>gf :call fzf#run(fzf#wrap({'source': 'git ls-files --cached --others *.java'}))<CR>
 nnoremap <Leader>rg :Rg<CR>
 
 let wiki = {}
@@ -409,3 +413,8 @@ let g:fzf_colors =
   \ 'marker':  ['fg', 'Keyword'],
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
+
+nmap <Leader>hh i System.out.println("Here");
+
+nmap <Leader>gs :G<CR>
+nmap <F10> :CocCommand java.debug.vimspector.start<CR>
