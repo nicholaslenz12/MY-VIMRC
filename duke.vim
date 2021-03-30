@@ -9,7 +9,7 @@ autocmd FileType c nnoremap <buffer> <F8> :!/usr/bin/gcc -o '%:r'
     \ -pedantic -std=gnu99 -ggdb3 %<CR>
 autocmd FileType cpp nnoremap <buffer> <F8> :!/usr/bin/g++ -o '%:r'
     \ -Wall -Wsign-compare -Wwrite-strings -Wtype-limits -Werror
-    \ -pedantic -std=gnu++11 -ggdb3 %<CR>
+    \ -pedantic -std=gnu++03 -ggdb3 %<CR>
 nnoremap <F20> :!./'%:r'<CR>
 
 " Skeleton
