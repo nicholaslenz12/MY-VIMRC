@@ -63,6 +63,7 @@ call plug#begin('~/.vim/plugged')
 
 " Declare the list of plugins.
 Plug 'crusoexia/vim-monokai'
+Plug 'morhetz/gruvbox'
 Plug 'preservim/nerdcommenter'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
