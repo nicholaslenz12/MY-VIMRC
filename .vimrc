@@ -77,6 +77,7 @@ Plug 'airblade/vim-gitgutter' "
 Plug 'vim-airline/vim-airline' "
 Plug 'vim-airline/vim-airline-themes' "
 Plug 'jpalardy/vim-slime'
+Plug 'kevinhwang91/rnvimr', {'do': 'make sync'}
 
 Plug 'majutsushi/tagbar'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -110,6 +111,7 @@ endif
 Plug 'luochen1990/rainbow'
 call plug#end()
 
+source ~/.vim/MY-VIMRC/chrisatmachine.vim
 source ~/.vim/MY-VIMRC/coc.vim
 source ~/.vim/MY-VIMRC/datascience.vim
 source ~/.vim/MY-VIMRC/deoplete.vim
