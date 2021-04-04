@@ -1,7 +1,9 @@
 if !has("gui_running")
     set termguicolors
 endif
-colorscheme monokai
+colorscheme gruvbox
+" colorscheme onedark
+hi Normal guibg=NONE ctermbg=NONE
 
 " Remove trailing '~'s
 hi clear LineNr

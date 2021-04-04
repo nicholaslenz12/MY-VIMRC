@@ -13,7 +13,12 @@ map <Space> <Leader>
 
 " Inserting lines in normal mode
 nmap <CR> o<Esc>
-autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
+
+" So can follow links for quickfix
+augroup quickfixgroup
+	autocmd!
+	autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
+augroup END
 
 " Faster replaying of macros in register w
 nmap <Leader>q @q

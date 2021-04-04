@@ -15,5 +15,8 @@ let g:fzf_colors =
 
 nnoremap <Leader>ff :Files<CR>
 nnoremap <Leader>gf :GFiles --cached --others --exclude-standard<CR>
-" nnoremap <Leader>gf :call fzf#run(fzf#wrap({'source': 'git ls-files --cached --others *.java'}))<CR>
+nnoremap <Leader>gj :GFiles --cached --others *.java<CR>
 nnoremap <Leader>rg :Rg<CR>
+
+let g:goyo_width = 120
+nnoremap <Leader>gz :Goyo<CR>
