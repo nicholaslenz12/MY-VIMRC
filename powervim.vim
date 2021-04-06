@@ -1,3 +1,6 @@
+" https://vim.fandom.com/wiki/Set_working_directory_to_the_current_file
+nnoremap <Leader>cd :cd %:p:h <bar> :pwd<CR>
+
 " See http://vimcasts.org/episodes/show-invisibles/
 set listchars=tab:▸\ ,eol:¬,trail:·
 
