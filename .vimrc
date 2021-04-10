@@ -94,6 +94,7 @@ endif
 "														---- AESTHETICS ----
 Plug 'crusoexia/vim-monokai'
 Plug 'rafi/awesome-vim-colorschemes'
+Plug 'https://github.com/pineapplegiant/spaceduck'
 Plug 'vim-scripts/CycleColor'
 Plug 'sonph/onehalf', { 'rtp': 'vim' }
 Plug 'vim-airline/vim-airline'
