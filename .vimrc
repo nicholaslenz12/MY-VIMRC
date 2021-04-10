@@ -1,5 +1,5 @@
 " =============================================================================
-"																	 BASICS
+									 " BASICS
 " =============================================================================
 set nocompatible
 syntax on " synax highlighting
@@ -10,22 +10,22 @@ set hidden " hide buffers, avoids extra prompts
 set backspace=indent,eol,start " actually can use backspace to delete text
 
 " -----------------------------------------------------------------------------
-"																 SEARCHING
+								   " SEARCHING
 " -----------------------------------------------------------------------------
 set hlsearch " incremental highlighting for searches
 set ignorecase " ignorecase during searches
 set smartcase " override ignorecase if capitals in search
 
 " -----------------------------------------------------------------------------
-"																INDENTATION
+								  " INDENTATION
 " -----------------------------------------------------------------------------
 set shiftwidth=2 " << and >> command # of columns shifted
-set tabstop=2 " what a tab looks like
+set tabstop=4 " what a tab looks like
 set smartindent " smartly indent with brackets, etc
 set autoindent " use indentation of previous line
 
 " -----------------------------------------------------------------------------
-"																INTERACTION
+								  " INTERACTION
 " -----------------------------------------------------------------------------
 set showcmd " show partially complete commands
 set laststatus=2 " always draw statusline for last window
@@ -40,7 +40,7 @@ set cmdheight=2 " lines for command line, size 2 avoids some press-enter prompts
 set clipboard+=unnamed " clipboard
 
 " -----------------------------------------------------------------------------
-"															CODE NAVIGATION
+								" CODE NAVIGATION
 " -----------------------------------------------------------------------------
 set number " shows line numbers
 set numberwidth=5 " width for number column
@@ -49,9 +49,9 @@ set cursorline " different background for current line of cursor
 
 
 " =============================================================================
-"																	VIM-PLUG
+									" VIM-PLUG
 " =============================================================================
-"														 ---- BUILT-IN ----
+							   " ---- BUILT-IN ----
 packadd! termdebug
 
 if empty(glob('~/.vim/autoload/plug.vim'))
@@ -61,10 +61,10 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.vim/plugged')
-"														---- ESSENTIAL ----
+							  " ---- ESSENTIAL ----
 Plug 'puremourning/vimspector'
 
-"													 ---- EASE OF USE ----
+							 " ---- EASE OF USE ----
 Plug 'preservim/nerdcommenter'
 Plug 'preservim/nerdtree'
 Plug 'majutsushi/tagbar'
@@ -73,11 +73,11 @@ Plug 'junegunn/fzf.vim'
 Plug 'ervandew/supertab'
 Plug 'tpope/vim-projectionist'
 
-"														---- COMMENTING ----
+							  " ---- COMMENTING ----
 Plug 'https://github.com/vim-scripts/DoxygenToolkit.vim'
 Plug 'pixelneo/vim-python-docstring'
 
-"									---- COMPLETITION/LSP/HIGHLIGHTING ----
+					" ---- COMPLETITION/LSP/HIGHLIGHTING ----
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -91,7 +91,7 @@ else
 endif
 " Plug 'sheerun/vim-polyglot'
 
-"														---- AESTHETICS ----
+							  " ---- AESTHETICS ----
 Plug 'crusoexia/vim-monokai'
 Plug 'rafi/awesome-vim-colorschemes'
 Plug 'https://github.com/pineapplegiant/spaceduck'
@@ -100,23 +100,23 @@ Plug 'sonph/onehalf', { 'rtp': 'vim' }
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
-"															 ---- GIT ----
+								 " ---- GIT ----
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 
-"															 ---- FUN ----
+								 " ---- FUN ----
 Plug 'https://github.com/vimwiki/vimwiki'
 Plug 'https://github.com/junegunn/goyo.vim'
 Plug 'https://github.com/liuchengxu/vim-which-key'
 Plug 'kevinhwang91/rnvimr', {'do': 'make sync'}
 
-"															 ---- TMUX ----
+								 " ---- TMUX ----
 Plug 'jpalardy/vim-slime'
 Plug 'hanschen/vim-ipython-cell', { 'for': 'python' }
 call plug#end()
 
 " =============================================================================
-"																Souce Files
+								  " Souce Files
 " =============================================================================
 source ~/.vim/MY-VIMRC/chrisatmachine.vim
 source ~/.vim/MY-VIMRC/coc.vim
