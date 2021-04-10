@@ -5,3 +5,6 @@ nmap <Leader>ln <Plug>(coc-rename)
 
 xmap <leader>la  <Plug>(coc-codeaction-selected)
 nmap <leader>la  <Plug>(coc-codeaction)
+
+nmap <leader>l] <Plug>(coc-diagnostic-next)
+nmap <leader>l[ <Plug>(coc-diagnostic-prev)
