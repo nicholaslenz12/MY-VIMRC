@@ -143,3 +143,5 @@ augroup vimrcgroup
 	autocmd!
 	autocmd! bufwritepost ~/.vimrc source %
 augroup END
+
+nmap <silent> gx :!open <cWORD><cr>
