@@ -110,7 +110,7 @@ Plug 'https://github.com/junegunn/goyo.vim'
 Plug 'https://github.com/liuchengxu/vim-which-key'
 Plug 'kevinhwang91/rnvimr', {'do': 'make sync'}
 
-								 " ---- TMUX ----
+							 " ---- DATA/ML ----
 Plug 'jpalardy/vim-slime'
 Plug 'hanschen/vim-ipython-cell', { 'for': 'python' }
 call plug#end()
