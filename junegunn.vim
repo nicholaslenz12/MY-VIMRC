@@ -14,9 +14,10 @@ let g:fzf_colors =
   \ 'header':  ['fg', 'Comment'] }
 
 nnoremap <Leader>ff :Files<CR>
+nnoremap <Leader>fh :Files ~<CR>
 nnoremap <Leader>gf :GFiles --cached --others --exclude-standard<CR>
 nnoremap <Leader>gj :GFiles --cached --others *.java<CR>
 nnoremap <Leader>rg :Rg<CR>
 
 let g:goyo_width = 120
-nnoremap <Leader>gz :Goyo<CR>
+nnoremap <Leader>gy :Goyo<CR>

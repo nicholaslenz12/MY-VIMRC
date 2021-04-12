@@ -45,7 +45,7 @@ set clipboard+=unnamed " clipboard
 set number " shows line numbers
 set numberwidth=5 " width for number column
 set colorcolumn=80 " width before drawing colorcolumn
-set cursorline " different background for current line of cursor
+" set cursorline " different background for current line of cursor
 
 
 " =============================================================================
@@ -62,57 +62,59 @@ endif
 
 call plug#begin('~/.vim/plugged')
 							  " ---- ESSENTIAL ----
-Plug 'puremourning/vimspector'
+Plug 'https://github.com/puremourning/vimspector'
 
 							 " ---- EASE OF USE ----
-Plug 'preservim/nerdcommenter'
-Plug 'preservim/nerdtree'
-Plug 'majutsushi/tagbar'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-Plug 'ervandew/supertab'
-Plug 'tpope/vim-projectionist'
+Plug 'https://github.com/preservim/nerdcommenter'
+Plug 'https://github.com/preservim/nerdtree'
+Plug 'https://github.com/majutsushi/tagbar'
+Plug 'https://github.com/junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'https://github.com/junegunn/fzf.vim'
+Plug 'https://github.com/ervandew/supertab'
+Plug 'https://github.com/tpope/vim-projectionist'
 
 							  " ---- COMMENTING ----
 Plug 'https://github.com/vim-scripts/DoxygenToolkit.vim'
-Plug 'pixelneo/vim-python-docstring'
+Plug 'https://github.com/pixelneo/vim-python-docstring'
 
 					" ---- COMPLETITION/LSP/HIGHLIGHTING ----
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'https://github.com/SirVer/ultisnips'
+Plug 'https://github.com/honza/vim-snippets'
+Plug 'https://github.com/neoclide/coc.nvim', {'branch': 'release'}
+Plug 'https://github.com/nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins', 'on': [] }
+  Plug 'https://github.com/Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins', 'on': [] }
 else
-  Plug 'Shougo/deoplete.nvim', { 'on': [] }
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
+  Plug 'https://github.com/Shougo/deoplete.nvim', { 'on': [] }
+  Plug 'https://github.com/roxma/nvim-yarp'
+  Plug 'https://github.com/roxma/vim-hug-neovim-rpc'
 endif
 " Plug 'sheerun/vim-polyglot'
 
 							  " ---- AESTHETICS ----
-Plug 'crusoexia/vim-monokai'
-Plug 'rafi/awesome-vim-colorschemes'
+Plug 'https://github.com/crusoexia/vim-monokai'
+Plug 'https://github.com/rafi/awesome-vim-colorschemes'
 Plug 'https://github.com/pineapplegiant/spaceduck'
-Plug 'vim-scripts/CycleColor'
-Plug 'sonph/onehalf', { 'rtp': 'vim' }
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+Plug 'https://github.com/vim-scripts/CycleColor'
+Plug 'https://github.com/sonph/onehalf', { 'rtp': 'vim' }
+Plug 'https://github.com/vim-airline/vim-airline'
+Plug 'https://github.com/vim-airline/vim-airline-themes'
 
 								 " ---- GIT ----
-Plug 'airblade/vim-gitgutter'
-Plug 'tpope/vim-fugitive'
+Plug 'https://github.com/airblade/vim-gitgutter'
+Plug 'https://github.com/tpope/vim-fugitive'
 
 								 " ---- FUN ----
 Plug 'https://github.com/vimwiki/vimwiki'
 Plug 'https://github.com/junegunn/goyo.vim'
 Plug 'https://github.com/liuchengxu/vim-which-key'
-Plug 'kevinhwang91/rnvimr', {'do': 'make sync'}
+Plug 'https://github.com/kevinhwang91/rnvimr', {'do': 'make sync'}
 
 							 " ---- DATA/ML ----
-Plug 'jpalardy/vim-slime'
-Plug 'hanschen/vim-ipython-cell', { 'for': 'python' }
+Plug 'https://github.com/jpalardy/vim-slime'
+Plug 'https://github.com/hanschen/vim-ipython-cell', { 'for': 'python' }
+
+Plug 'https://github.com/easymotion/vim-easymotion'
 call plug#end()
 
 " =============================================================================
@@ -138,10 +140,12 @@ source ~/.vim/MY-VIMRC/supertab.vim
 source ~/.vim/MY-VIMRC/vimbindings.vim
 source ~/.vim/MY-VIMRC/vimspector.vim
 source ~/.vim/MY-VIMRC/vimwiki.vim
+source ~/.vim/MY-VIMRC/easymotion.vim
 
 augroup vimrcgroup
 	autocmd!
 	autocmd! bufwritepost ~/.vimrc source %
+	autocmd! bufwritepost ~/.vim/MY-VIMRC/.vimrc source %
 augroup END
 
 nmap <silent> gx :!open <cWORD><cr>
