@@ -108,7 +108,6 @@ Plug 'https://github.com/tpope/vim-fugitive'
 Plug 'https://github.com/vimwiki/vimwiki'
 Plug 'https://github.com/junegunn/goyo.vim'
 Plug 'https://github.com/liuchengxu/vim-which-key'
-Plug 'https://github.com/kevinhwang91/rnvimr', {'do': 'make sync'}
 
 							 " ---- DATA/ML ----
 Plug 'https://github.com/jpalardy/vim-slime'
@@ -116,6 +115,7 @@ Plug 'https://github.com/hanschen/vim-ipython-cell', { 'for': 'python' }
 
 Plug 'https://github.com/easymotion/vim-easymotion'
 Plug 'https://github.com/rhysd/vim-clang-format'
+Plug 'https://github.com/mcchrish/nnn.vim'
 call plug#end()
 
 " =============================================================================
@@ -125,7 +125,9 @@ source ~/.vim/MY-VIMRC/chrisatmachine.vim
 source ~/.vim/MY-VIMRC/coc.vim
 source ~/.vim/MY-VIMRC/datascience.vim
 source ~/.vim/MY-VIMRC/deoplete.vim
+source ~/.vim/MY-VIMRC/distrotube.vim
 source ~/.vim/MY-VIMRC/duke.vim
+source ~/.vim/MY-VIMRC/easymotion.vim
 source ~/.vim/MY-VIMRC/editing.vim
 source ~/.vim/MY-VIMRC/junegunn.vim
 source ~/.vim/MY-VIMRC/latex.vim
