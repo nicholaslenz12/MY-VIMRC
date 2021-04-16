@@ -115,6 +115,7 @@ Plug 'https://github.com/jpalardy/vim-slime'
 Plug 'https://github.com/hanschen/vim-ipython-cell', { 'for': 'python' }
 
 Plug 'https://github.com/easymotion/vim-easymotion'
+Plug 'https://github.com/rhysd/vim-clang-format'
 call plug#end()
 
 " =============================================================================
@@ -140,7 +141,7 @@ source ~/.vim/MY-VIMRC/supertab.vim
 source ~/.vim/MY-VIMRC/vimbindings.vim
 source ~/.vim/MY-VIMRC/vimspector.vim
 source ~/.vim/MY-VIMRC/vimwiki.vim
-source ~/.vim/MY-VIMRC/easymotion.vim
+source ~/.vim/MY-VIMRC/movement.vim
 
 augroup vimrcgroup
 	autocmd!
@@ -149,3 +150,6 @@ augroup vimrcgroup
 augroup END
 
 nmap <silent> gx :!open <cWORD><cr>
+
+autocmd User EasyMotionPromptBegin silent! CocDisable
+autocmd User EasyMotionPromptEnd   silent! CocEnable

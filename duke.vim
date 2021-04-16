@@ -1,5 +1,5 @@
 " map <C-K> :py3f /usr/local/Cellar/clang-format/*/share/clang/clang-format.py<CR>
-map <C-K> :py3f /usr/share/clang/clang-format-10/clang-format.py
+map <C-K> :ClangFormat<CR>
 
 "  Open netrw for Duke VM
 nnoremap <F6> :e scp://nwl4@vcm-5185.vm.duke.edu/<CR>
