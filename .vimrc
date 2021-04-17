@@ -145,6 +145,10 @@ source ~/.vim/MY-VIMRC/vimspector.vim
 source ~/.vim/MY-VIMRC/vimwiki.vim
 source ~/.vim/MY-VIMRC/movement.vim
 
+if has('nvim')
+  source ~/.vim/MY-VIMRC/lua.vim
+endif
+
 augroup vimrcgroup
 	autocmd!
 	autocmd! bufwritepost ~/.vimrc source %
