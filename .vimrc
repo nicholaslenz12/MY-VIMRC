@@ -81,7 +81,10 @@ Plug 'https://github.com/pixelneo/vim-python-docstring'
 Plug 'https://github.com/SirVer/ultisnips'
 Plug 'https://github.com/honza/vim-snippets'
 Plug 'https://github.com/neoclide/coc.nvim', {'branch': 'release'}
-Plug 'https://github.com/nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+if has ('nvim')
+  Plug 'https://github.com/nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+endif
+
 if has('nvim')
   Plug 'https://github.com/Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins', 'on': [] }
 else
@@ -89,7 +92,6 @@ else
   Plug 'https://github.com/roxma/nvim-yarp'
   Plug 'https://github.com/roxma/vim-hug-neovim-rpc'
 endif
-" Plug 'sheerun/vim-polyglot'
 
 							  " ---- AESTHETICS ----
 Plug 'https://github.com/crusoexia/vim-monokai'
@@ -103,6 +105,7 @@ Plug 'https://github.com/vim-airline/vim-airline-themes'
 								 " ---- GIT ----
 Plug 'https://github.com/airblade/vim-gitgutter'
 Plug 'https://github.com/tpope/vim-fugitive'
+Plug 'https://github.com/stsewd/fzf-checkout.vim'
 
 								 " ---- FUN ----
 Plug 'https://github.com/vimwiki/vimwiki'
@@ -116,6 +119,14 @@ Plug 'https://github.com/hanschen/vim-ipython-cell', { 'for': 'python' }
 Plug 'https://github.com/easymotion/vim-easymotion'
 Plug 'https://github.com/rhysd/vim-clang-format'
 Plug 'https://github.com/mcchrish/nnn.vim'
+
+Plug 'https://github.com/takac/vim-hardtime'
+
+							  " ---- NEOVIM ----
+Plug 'https://github.com/folke/tokyonight.nvim'
+
+Plug 'hoob3rt/lualine.nvim'
+Plug 'ryanoasis/vim-devicons'
 call plug#end()
 
 " =============================================================================
@@ -123,6 +134,7 @@ call plug#end()
 " =============================================================================
 source ~/.vim/MY-VIMRC/chrisatmachine.vim
 source ~/.vim/MY-VIMRC/coc.vim
+source ~/.vim/MY-VIMRC/commenting.vim
 source ~/.vim/MY-VIMRC/datascience.vim
 source ~/.vim/MY-VIMRC/deoplete.vim
 source ~/.vim/MY-VIMRC/distrotube.vim
@@ -132,8 +144,8 @@ source ~/.vim/MY-VIMRC/editing.vim
 source ~/.vim/MY-VIMRC/junegunn.vim
 source ~/.vim/MY-VIMRC/latex.vim
 source ~/.vim/MY-VIMRC/misc.vim
+source ~/.vim/MY-VIMRC/movement.vim
 source ~/.vim/MY-VIMRC/navigation.vim
-source ~/.vim/MY-VIMRC/commenting.vim
 source ~/.vim/MY-VIMRC/netrw.vim
 source ~/.vim/MY-VIMRC/powervim.vim
 source ~/.vim/MY-VIMRC/theme.vim
@@ -143,19 +155,30 @@ source ~/.vim/MY-VIMRC/supertab.vim
 source ~/.vim/MY-VIMRC/vimbindings.vim
 source ~/.vim/MY-VIMRC/vimspector.vim
 source ~/.vim/MY-VIMRC/vimwiki.vim
-source ~/.vim/MY-VIMRC/movement.vim
+source ~/.vim/MY-VIMRC/whichkey.vim
 
 if has('nvim')
   source ~/.vim/MY-VIMRC/lua.vim
 endif
 
 augroup vimrcgroup
-	autocmd!
-	autocmd! bufwritepost ~/.vimrc source %
-	autocmd! bufwritepost ~/.vim/MY-VIMRC/.vimrc source %
+ autocmd!
+  autocmd! bufwritepost ~/.vimrc source %
+  autocmd! bufwritepost ~/.vim/MY-VIMRC/.vimrc source %
 augroup END
 
 nmap <silent> gx :!open <cWORD><cr>
 
 autocmd User EasyMotionPromptBegin silent! CocDisable
 autocmd User EasyMotionPromptEnd   silent! CocEnable
+
+let g:hardtime_timeout = 2000
+
+nnoremap <Leader>gb :GBranches<CR>
+nnoremap <Leader>gc :GBranches checkout<CR>
+nnoremap <Leader>gd :GBranches delete<CR>
+nnoremap <Leader>gr :GBranches rebase<CR>
+
+set timeoutlen=500
+set encoding=UTF-8
+

@@ -15,8 +15,8 @@ let g:fzf_colors =
 
 nnoremap <Leader>ff :Files<CR>
 nnoremap <Leader>fh :Files ~<CR>
-nnoremap <Leader>gf :GFiles --cached --others --exclude-standard<CR>
-nnoremap <Leader>gj :GFiles --cached --others *.java<CR>
+nnoremap <Leader>fg :GFiles --cached --others --exclude-standard<CR>
+nnoremap <Leader>fj :GFiles --cached --others *.java<CR>
 nnoremap <Leader>rg :Rg<CR>
 
 let g:goyo_width = 120
