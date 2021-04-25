@@ -72,6 +72,7 @@ Plug 'https://github.com/junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'https://github.com/junegunn/fzf.vim'
 Plug 'https://github.com/ervandew/supertab'
 Plug 'https://github.com/tpope/vim-projectionist'
+Plug 'https://github.com/osyo-manga/vim-over'
 
 							  " ---- COMMENTING ----
 Plug 'https://github.com/vim-scripts/DoxygenToolkit.vim'
@@ -111,12 +112,12 @@ Plug 'https://github.com/stsewd/fzf-checkout.vim'
 Plug 'https://github.com/vimwiki/vimwiki'
 Plug 'https://github.com/junegunn/goyo.vim'
 Plug 'https://github.com/liuchengxu/vim-which-key'
+Plug 'https://github.com/tweekmonster/startuptime.vim'
 
 							 " ---- DATA/ML ----
 Plug 'https://github.com/jpalardy/vim-slime'
 Plug 'https://github.com/hanschen/vim-ipython-cell', { 'for': 'python' }
 
-Plug 'https://github.com/easymotion/vim-easymotion'
 Plug 'https://github.com/rhysd/vim-clang-format'
 Plug 'https://github.com/mcchrish/nnn.vim'
 
@@ -128,7 +129,6 @@ Plug 'https://github.com/folke/tokyonight.nvim'
 Plug 'hoob3rt/lualine.nvim'
 Plug 'ryanoasis/vim-devicons'
 call plug#end()
-
 " =============================================================================
 								  " Souce Files
 " =============================================================================

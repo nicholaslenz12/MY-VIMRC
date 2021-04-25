@@ -3,7 +3,7 @@ if !has("gui_running")
 endif
 
 " colorscheme monokai
-colorscheme molokai
+colorscheme gruvbox
 " colorscheme onedark
 
 " nnoremap <C-[> :CycleColorPrev<CR>

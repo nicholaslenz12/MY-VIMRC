@@ -7,7 +7,7 @@ require'nvim-treesitter.configs'.setup {
 
 require('lualine').setup{
   options = {
-  theme = 'molokai',
+  theme = 'gruvbox',
   },
 }
 EOF
