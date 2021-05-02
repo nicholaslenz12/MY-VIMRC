@@ -73,6 +73,7 @@ Plug 'https://github.com/junegunn/fzf.vim'
 Plug 'https://github.com/ervandew/supertab'
 Plug 'https://github.com/tpope/vim-projectionist'
 Plug 'https://github.com/osyo-manga/vim-over'
+Plug 'dense-analysis/ale'
 
 							  " ---- COMMENTING ----
 Plug 'https://github.com/vim-scripts/DoxygenToolkit.vim'
@@ -81,15 +82,18 @@ Plug 'https://github.com/pixelneo/vim-python-docstring'
 					" ---- COMPLETITION/LSP/HIGHLIGHTING ----
 Plug 'https://github.com/SirVer/ultisnips'
 Plug 'https://github.com/honza/vim-snippets'
-Plug 'https://github.com/neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'https://github.com/neoclide/coc.nvim', {'branch': 'release'}
+
 if has ('nvim')
   Plug 'https://github.com/nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 endif
 
 if has('nvim')
-  Plug 'https://github.com/Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins', 'on': [] }
+  Plug 'https://github.com/Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins'}
+  " Plug 'https://github.com/Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins', 'on': [] }
 else
-  Plug 'https://github.com/Shougo/deoplete.nvim', { 'on': [] }
+  Plug 'https://github.com/Shougo/deoplete.nvim'
+  " Plug 'https://github.com/Shougo/deoplete.nvim', { 'on': [] }
   Plug 'https://github.com/roxma/nvim-yarp'
   Plug 'https://github.com/roxma/vim-hug-neovim-rpc'
 endif
@@ -132,8 +136,9 @@ call plug#end()
 " =============================================================================
 								  " Souce Files
 " =============================================================================
+source ~/.vim/MY-VIMRC/ale.vim
 source ~/.vim/MY-VIMRC/chrisatmachine.vim
-source ~/.vim/MY-VIMRC/coc.vim
+" source ~/.vim/MY-VIMRC/coc.vim
 source ~/.vim/MY-VIMRC/commenting.vim
 source ~/.vim/MY-VIMRC/datascience.vim
 source ~/.vim/MY-VIMRC/deoplete.vim
@@ -169,8 +174,8 @@ augroup END
 
 nmap <silent> gx :!open <cWORD><cr>
 
-autocmd User EasyMotionPromptBegin silent! CocDisable
-autocmd User EasyMotionPromptEnd   silent! CocEnable
+" autocmd User EasyMotionPromptBegin silent! CocDisable
+" autocmd User EasyMotionPromptEnd   silent! CocEnable
 
 let g:hardtime_timeout = 2000
 
@@ -181,4 +186,3 @@ nnoremap <Leader>gr :GBranches rebase<CR>
 
 set timeoutlen=500
 set encoding=UTF-8
-
