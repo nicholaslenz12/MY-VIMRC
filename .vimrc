@@ -167,7 +167,7 @@ if has('nvim')
 endif
 
 augroup vimrcgroup
- autocmd!
+  autocmd!
   autocmd! bufwritepost ~/.vimrc source %
   autocmd! bufwritepost ~/.vim/MY-VIMRC/.vimrc source %
 augroup END

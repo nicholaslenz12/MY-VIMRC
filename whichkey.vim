@@ -29,9 +29,31 @@ let g:which_key_map.g = {
       \ 's' : [':G', 'show-stage'],
       \ }
 
+let g:which_key_map.l = {
+      \ 'name' : '+lsp' ,
+	  \ 'd' : ['<Plug>(coc-definition)', 'lsp-definition'],
+	  \ 'r' : ['<Plug>(coc-references)', 'lsp-references'],
+	  \ 'f' : ['<Plug>(coc-refactor)', 'lsp-refactor'],
+	  \ 'n' : ['<Plug>(coc-rename)', 'lsp-rename'],
+	  \ 'a' : [' <Plug>(coc-codeaction)', 'lsp-codeaction'],
+	  \ '[ <' : ['lug>(coc-diagnostic-prev)', 'lsp-diagnostic-prev'],
+	  \ '] <' : ['lug>(coc-diagnostic-next)', 'lsp-diagnostic-next'],
+	  \ }
+
+let g:which_key_map.t = {
+      \ 'name' : '+(la)tex' ,
+	  \ 'l' : [':!latexmk -pdf -synctex=1 %', 'latex-latexmk'],
+	  \ 'x' : [':!xelatex -pdf -synctex=1 %', 'latex-xelatex'],
+	  \ 'c' : [':!latexmk -c', 'latex-clean'],
+	  \ 's' : [':!open -a Skim %:r.pdf', 'latex-open'],
+	  \ }
+
 call which_key#register('<Space>', "g:which_key_map")
 
 " Hide status line
-autocmd! FileType which_key
-autocmd  FileType which_key set laststatus=0 noshowmode noruler
-  \| autocmd BufLeave <buffer> set laststatus=2 noshowmode ruler
+augroup whichkey
+  autocmd!
+  autocmd! FileType which_key
+  autocmd  FileType which_key set laststatus=0 noshowmode noruler
+	\| autocmd BufLeave <buffer> set laststatus=2 noshowmode ruler
+augroup END
