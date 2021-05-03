@@ -64,7 +64,7 @@ call plug#begin('~/.vim/plugged')
 							  " ---- ESSENTIAL ----
 Plug 'https://github.com/puremourning/vimspector'
 
-							 " ---- EASE OF USE ----
+                             " ---- EASE OF USE ----
 Plug 'https://github.com/preservim/nerdcommenter'
 Plug 'https://github.com/preservim/nerdtree'
 Plug 'https://github.com/majutsushi/tagbar'
@@ -73,27 +73,26 @@ Plug 'https://github.com/junegunn/fzf.vim'
 Plug 'https://github.com/ervandew/supertab'
 Plug 'https://github.com/tpope/vim-projectionist'
 Plug 'https://github.com/osyo-manga/vim-over'
-Plug 'dense-analysis/ale'
 
-							  " ---- COMMENTING ----
+                              " ---- COMMENTING ----
 Plug 'https://github.com/vim-scripts/DoxygenToolkit.vim'
 Plug 'https://github.com/pixelneo/vim-python-docstring'
 
-					" ---- COMPLETITION/LSP/HIGHLIGHTING ----
+                    " ---- COMPLETITION/LSP/HIGHLIGHTING ----
 Plug 'https://github.com/SirVer/ultisnips'
 Plug 'https://github.com/honza/vim-snippets'
-" Plug 'https://github.com/neoclide/coc.nvim', {'branch': 'release'}
+Plug 'https://github.com/neoclide/coc.nvim', {'branch': 'release'}
 
 if has ('nvim')
   Plug 'https://github.com/nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 endif
 
 if has('nvim')
-  Plug 'https://github.com/Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins'}
-  " Plug 'https://github.com/Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins', 'on': [] }
+  " Plug 'https://github.com/Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins'}
+  Plug 'https://github.com/Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins', 'on': [] }
 else
-  Plug 'https://github.com/Shougo/deoplete.nvim'
-  " Plug 'https://github.com/Shougo/deoplete.nvim', { 'on': [] }
+  " Plug 'https://github.com/Shougo/deoplete.nvim'
+  Plug 'https://github.com/Shougo/deoplete.nvim', { 'on': [] }
   Plug 'https://github.com/roxma/nvim-yarp'
   Plug 'https://github.com/roxma/vim-hug-neovim-rpc'
 endif
@@ -107,18 +106,18 @@ Plug 'https://github.com/sonph/onehalf', { 'rtp': 'vim' }
 Plug 'https://github.com/vim-airline/vim-airline'
 Plug 'https://github.com/vim-airline/vim-airline-themes'
 
-								 " ---- GIT ----
+                                 " ---- GIT ----
 Plug 'https://github.com/airblade/vim-gitgutter'
 Plug 'https://github.com/tpope/vim-fugitive'
 Plug 'https://github.com/stsewd/fzf-checkout.vim'
 
-								 " ---- FUN ----
+                                 " ---- FUN ----
 Plug 'https://github.com/vimwiki/vimwiki'
 Plug 'https://github.com/junegunn/goyo.vim'
 Plug 'https://github.com/liuchengxu/vim-which-key'
 Plug 'https://github.com/tweekmonster/startuptime.vim'
 
-							 " ---- DATA/ML ----
+                             " ---- DATA/ML ----
 Plug 'https://github.com/jpalardy/vim-slime'
 Plug 'https://github.com/hanschen/vim-ipython-cell', { 'for': 'python' }
 
@@ -127,7 +126,7 @@ Plug 'https://github.com/mcchrish/nnn.vim'
 
 Plug 'https://github.com/takac/vim-hardtime'
 
-							  " ---- NEOVIM ----
+                              " ---- NEOVIM ----
 Plug 'https://github.com/folke/tokyonight.nvim'
 
 Plug 'hoob3rt/lualine.nvim'
@@ -136,9 +135,9 @@ call plug#end()
 " =============================================================================
 								  " Souce Files
 " =============================================================================
-source ~/.vim/MY-VIMRC/ale.vim
+" source ~/.vim/MY-VIMRC/ale.vim
 source ~/.vim/MY-VIMRC/chrisatmachine.vim
-" source ~/.vim/MY-VIMRC/coc.vim
+source ~/.vim/MY-VIMRC/coc.vim
 source ~/.vim/MY-VIMRC/commenting.vim
 source ~/.vim/MY-VIMRC/datascience.vim
 source ~/.vim/MY-VIMRC/deoplete.vim
@@ -186,3 +185,5 @@ nnoremap <Leader>gr :GBranches rebase<CR>
 
 set timeoutlen=500
 set encoding=UTF-8
+
+let g:UltiSnipsExpandTrigger = '<C-x>'
