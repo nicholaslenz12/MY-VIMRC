@@ -1,49 +1,46 @@
 " =============================================================================
 								   " BASICS
 " =============================================================================
-" -----------------------------------------------------------------------------
-							   " SANE DEFAULTS
-" -----------------------------------------------------------------------------
-set nocompatible               " don't try to be like vi
-syntax on                      " synax highlighting
+						  " ---- SANE DEFAULTS ----
+set nocompatible                   " don't try to be like vi
+syntax on                          " synax highlighting
 filetype indent plugin on
 
-set lazyredraw                 " don't redraw during macros, ...
-set hidden                     " hide buffers, avoids extra prompts
-set backspace=indent,eol,start " actually can use backspace to delete text
+set lazyredraw                     " don't redraw during macros, ...
+set hidden                         " hide buffers, avoids extra prompts
+set backspace=indent,eol,start     " actually can use backspace to delete text
 set encoding=UTF-8
 
-set hlsearch                   " incremental highlighting for searches
-set ignorecase                 " ignorecase during searches
-set smartcase                  " override ignorecase if capitals in search
+set hlsearch                       " incremental highlighting for searches
+set ignorecase                     " ignorecase during searches
+set smartcase                      " override ignorecase if capitals in search
 
-set shiftwidth=2               " << and >> command # of columns shifted
-set tabstop=4                  " what a tab looks like
-set smartindent                " smartly indent with brackets, etc
-set autoindent                 " use indentation of previous line
+set shiftwidth=2                   " << and >> command # of columns shifted
+set tabstop=4                      " what a tab looks like
+set smartindent                    " smartly indent with brackets, etc
+set autoindent                     " use indentation of previous line
 
-set showcmd                    " show partially complete commands
-set laststatus=2               " always draw statusline for last window
+set showcmd                        " show partially complete commands
+set laststatus=2                   " always draw statusline for last window
 
-set confirm                    " confirm choices
-set visualbell                 " turn off sounds use visualbell
+set confirm                        " confirm choices
+set visualbell                     " turn off sounds use visualbell
 set t_vb=
 
-set cmdheight=2                " lines for command line, size 2 avoids some
-                               " press-enter prompts
+set cmdheight=2                    " lines for command line, size 2 avoids some
+                                   " press-enter prompts
 
-set clipboard+=unnamed         " system clipboard
+set clipboard+=unnamed             " system clipboard
 
-" -----------------------------------------------------------------------------
-								 " PREFERENCE
-" -----------------------------------------------------------------------------
-set number           " shows line numbers
-set numberwidth=5    " width for number column
-set colorcolumn=80   " width before drawing colorcolumn
+					   " ---- PERSONAL PREFERENCE ----
+set number                         " shows line numbers
+set numberwidth=5                  " width for number column
+set colorcolumn=80                 " width before drawing colorcolumn
 set noswapfile
 set updatetime=100
 set timeoutlen=500
-" set cursorline     " different background for current line of cursor
+" set cursorline                     " different background for current line of
+								   " cursor
 
 " =============================================================================
 								  " VIM-PLUG
@@ -87,8 +84,7 @@ endif
 
 if has('nvim')
   " Plug 'https://github.com/Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins'}
-  Plug 'https://github.com/Shougo/deoplete.nvim',
-		\ { 'do': ':UpdateRemotePlugins', 'on': [] }
+  Plug 'https://github.com/Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins', 'on': [] }
 else
   " Plug 'https://github.com/Shougo/deoplete.nvim'
   Plug 'https://github.com/Shougo/deoplete.nvim', { 'on': [] }
@@ -162,7 +158,6 @@ source ~/.vim/MY-VIMRC/whichkey.vim
 if has('nvim')
   source ~/.vim/MY-VIMRC/lua.vim
 endif
-
 
 nmap <silent> gx :!open <cWORD><cr> " Hacky
 
