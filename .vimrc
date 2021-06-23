@@ -30,7 +30,7 @@ set t_vb=
 set cmdheight=2                    " lines for command line, size 2 avoids some
                                    " press-enter prompts
 
-set clipboard+=unnamed             " system clipboard
+set clipboard^=unnamed,unnamedplus " system clipboard
 
 					   " ---- PERSONAL PREFERENCE ----
 set number                         " shows line numbers

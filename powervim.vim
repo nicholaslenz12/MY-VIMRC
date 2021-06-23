@@ -21,3 +21,5 @@ nnoremap <Leader><Tab> :set invrelativenumber<CR>
 nnoremap <Leader>e :nohl<CR><C-L>
 
 nnoremap <A-s> :w<CR>
+imap jk <Esc>
+imap kj <Esc>
