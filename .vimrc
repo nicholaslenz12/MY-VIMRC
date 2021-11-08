@@ -66,6 +66,7 @@ Plug 'https://github.com/junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'https://github.com/junegunn/fzf.vim'
 Plug 'https://github.com/ervandew/supertab'
 Plug 'https://github.com/tpope/vim-projectionist'
+Plug 'https://github.com/tpope/vim-surround.git'
 Plug 'https://github.com/osyo-manga/vim-over'
 
 							" ---- COMMENTING ----
@@ -159,7 +160,7 @@ if has('nvim')
   source ~/.vim/MY-VIMRC/lua.vim
 endif
 
-nmap <silent> gx :!open <cWORD><cr> " Hacky
+nmap <silent> gx :!open <cWORD><cr>
 
 let g:hardtime_timeout = 2000
 
