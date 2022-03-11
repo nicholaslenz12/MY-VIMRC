@@ -27,6 +27,7 @@ let g:which_key_map.g = {
       \ 'd' : [':Gbranches delete', 'fuzzy-delete'],
       \ 'r' : [':Gbranches rebase', 'fuzzy-rebase'],
       \ 's' : [':G', 'show-stage'],
+      \ 'f' : [':G', 'show-diff'],
       \ }
 
 let g:which_key_map.l = {
