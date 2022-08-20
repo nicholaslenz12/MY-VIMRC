@@ -1,5 +1,0 @@
-:colorscheme monokai
-:colorscheme sonokai
-:colorscheme tender
-:colorscheme gruvbox
-:colorscheme hybrid_reverse

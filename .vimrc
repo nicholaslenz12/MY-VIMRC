@@ -1,53 +1,94 @@
-" =============================================================================
-								   " BASICS
-" =============================================================================
-						  " ---- SANE DEFAULTS ----
-set nocompatible                   " don't try to be like vi
-syntax on                          " synax highlighting
+" ---- BASICS ----
+set nocompatible                     " don't try to be like vi
+syntax on                            " syntax highlighting
 filetype indent plugin on
 
-set lazyredraw                     " don't redraw during macros, ...
-set hidden                         " hide buffers, avoids extra prompts
-set backspace=indent,eol,start     " actually can use backspace to delete text
-set encoding=UTF-8
+set ignorecase                       " ignorecase during searches
+set smartcase                        " override ignorecase if capitals in search
 
-set hlsearch                       " incremental highlighting for searches
-set ignorecase                     " ignorecase during searches
-set smartcase                      " override ignorecase if capitals in search
+set lazyredraw                       " don't redraw during macros, ...
+set hidden                           " sanity with buffers
 
-set shiftwidth=2                   " << and >> command # of columns shifted
-set tabstop=4                      " what a tab looks like
-set smartindent                    " smartly indent with brackets, etc
-set autoindent                     " use indentation of previous line
+" backwards compatibility with vim --->
+set backspace=indent,eol,start       " so can use backspace
+set hlsearch                         " incremental highlighting for searches
+set wildmenu
+set wildcharm=<C-Z>
+" <---
 
-set showcmd                        " show partially complete commands
-set laststatus=2                   " always draw statusline for last window
+set shiftwidth=4                     " << and >> command # of columns shifted
+set tabstop=4                        " what a tab looks like
+set expandtab                        " use spaces to insert tab
 
-set confirm                        " confirm choices
-set visualbell                     " turn off sounds use visualbell
+set smartindent                      " smartly indent with brackets, etc
+set autoindent                       " use indentation of previous line
+
+set showcmd                          " show partially complete commands
+set laststatus=2                     " always draw statusline for last window
+
+set confirm                          " confirm choices
+set visualbell                       " turn off sounds use visualbell
 set t_vb=
 
-set cmdheight=2                    " lines for command line, size 2 avoids some
-                                   " press-enter prompts
+set cmdheight=2                      " size 2 avoids some press-enter prompts
 
-set clipboard^=unnamed,unnamedplus " system clipboard
+set clipboard^=unnamed,unnamedplus   " system clipboard
 
-					   " ---- PERSONAL PREFERENCE ----
-set number                         " shows line numbers
-set numberwidth=5                  " width for number column
-set colorcolumn=80                 " width before drawing colorcolumn
-set noswapfile
+set number                           " line numebers
+set numberwidth=5                    " number column spacing
+set colorcolumn=80                   " width before drawing colorcolumn
+set noswapfile                       " disable creating swap files
 set updatetime=100
-set timeoutlen=500
-" set cursorline                     " different background for current line of
-								   " cursor
+set timeoutlen=1000
+set cursorline                       " can be slow
+set nowrap                           " preference
 
-" =============================================================================
-								  " VIM-PLUG
-" =============================================================================
-							 " ---- BUILT-IN ----
-packadd! termdebug
+" See http://vimcasts.org/episodes/show-invisibles/
+set listchars=tab:▸\ ,eol:¬,trail:·
 
+
+" ---- NATIVE MAPPINGS ----
+nnoremap <F5> :e $MYVIMRC<CR>
+map <Space> <Leader>
+
+" windows
+map <bar> <C-W>v<C-W><Right>
+map _ <C-W>s<C-W><Down>
+
+" navigation in wildmenu
+cnoremap <expr> <up> wildmenumode() ? "\<left>" : "\<up>"
+cnoremap <expr> <down> wildmenumode() ? "\<right>" : "\<down>"
+cnoremap <expr> <left> wildmenumode() ? "\<up>" : "\<left>"
+cnoremap <expr> <right> wildmenumode() ? " \<bs>\<C-Z>" : "\<right>"
+
+" adding newlines
+nmap <CR> o<Esc>
+
+" moving text
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+
+" replaying macros
+nmap <Leader>q @q
+vmap <Leader>q :norm @q<CR>
+vmap . :norm .<CR>
+
+" shell
+map <Leader>s :!
+
+" replace
+nnoremap <Leader>rr :%s/\<<C-r><C-w>\>//g<Left><Left>
+
+" Map Y to act like D and C, i.e. to yank until EOL, rather than act as yy,
+" which is the default (source: https://vim.fandom.com/wiki/Example_vimrc)
+map Y y$
+map D d$
+
+nnoremap <C-n> :bn<CR>
+nnoremap <C-p> :bp<CR>
+
+
+" ---- PLUGINS ----
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -55,125 +96,64 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.vim/plugged')
-							" ---- ESSENTIAL ----
-Plug 'https://github.com/puremourning/vimspector'
 
-						   " ---- EASE OF USE ----
-Plug 'https://github.com/preservim/nerdcommenter'
-Plug 'https://github.com/preservim/nerdtree'
-Plug 'https://github.com/majutsushi/tagbar'
-Plug 'https://github.com/junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'https://github.com/junegunn/fzf.vim'
-Plug 'https://github.com/ervandew/supertab'
-Plug 'https://github.com/tpope/vim-projectionist'
-Plug 'https://github.com/tpope/vim-surround.git'
-Plug 'https://github.com/osyo-manga/vim-over'
+Plug 'vimwiki/vimwiki'
+Plug 'tpope/vim-fugitive'
 
-							" ---- COMMENTING ----
-Plug 'https://github.com/vim-scripts/DoxygenToolkit.vim'
-Plug 'https://github.com/pixelneo/vim-python-docstring'
-Plug 'https://github.com/godlygeek/tabular'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
 
-				  " ---- COMPLETITION/LSP/HIGHLIGHTING ----
-Plug 'https://github.com/SirVer/ultisnips'
-Plug 'https://github.com/honza/vim-snippets'
-Plug 'https://github.com/neoclide/coc.nvim', {'branch': 'release'}
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'morhetz/gruvbox'
+Plug 'nvim-lualine/lualine.nvim'
+Plug 'akinsho/bufferline.nvim', { 'tag': 'v2.*' }
 
-if has ('nvim')
-  Plug 'https://github.com/nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-endif
+Plug 'lewis6991/gitsigns.nvim'
+Plug 'sindrets/diffview.nvim'
 
-if has('nvim')
-  " Plug 'https://github.com/Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins'}
-  Plug 'https://github.com/Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins', 'on': [] }
-else
-  " Plug 'https://github.com/Shougo/deoplete.nvim'
-  Plug 'https://github.com/Shougo/deoplete.nvim', { 'on': [] }
-  Plug 'https://github.com/roxma/nvim-yarp'
-  Plug 'https://github.com/roxma/vim-hug-neovim-rpc'
-endif
+Plug 'kyazdani42/nvim-tree.lua'
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'numToStr/Comment.nvim'
+Plug 'akinsho/toggleterm.nvim', {'tag' : 'v2.*'}
+Plug 'tversteeg/registers.nvim', { 'branch': 'main' }
 
-							" ---- AESTHETICS ----
-Plug 'https://github.com/crusoexia/vim-monokai'
-Plug 'https://github.com/rafi/awesome-vim-colorschemes'
-Plug 'https://github.com/pineapplegiant/spaceduck'
-Plug 'https://github.com/vim-scripts/CycleColor'
-Plug 'https://github.com/sonph/onehalf', { 'rtp': 'vim' }
-Plug 'https://github.com/vim-airline/vim-airline'
-Plug 'https://github.com/vim-airline/vim-airline-themes'
+Plug 'neovim/nvim-lspconfig'
+Plug 'williamboman/nvim-lsp-installer'
+Plug 'j-hui/fidget.nvim'
 
-							   " ---- GIT ----
-Plug 'https://github.com/airblade/vim-gitgutter'
-Plug 'https://github.com/tpope/vim-fugitive'
-Plug 'https://github.com/stsewd/fzf-checkout.vim'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'L3MON4D3/LuaSnip'
+Plug 'saadparwaiz1/cmp_luasnip'
 
-							   " ---- FUN ----
-Plug 'https://github.com/vimwiki/vimwiki'
-Plug 'https://github.com/junegunn/goyo.vim'
-Plug 'https://github.com/liuchengxu/vim-which-key'
-Plug 'https://github.com/tweekmonster/startuptime.vim'
-
-							 " ---- DATA/ML ----
-Plug 'https://github.com/jpalardy/vim-slime'
-Plug 'https://github.com/hanschen/vim-ipython-cell', { 'for': 'python' }
-
-Plug 'https://github.com/rhysd/vim-clang-format'
-Plug 'https://github.com/mcchrish/nnn.vim'
-
-Plug 'https://github.com/takac/vim-hardtime'
-
-							  " ---- NEOVIM ----
-Plug 'https://github.com/folke/tokyonight.nvim'
-
-Plug 'hoob3rt/lualine.nvim'
-Plug 'ryanoasis/vim-devicons'
 call plug#end()
-" =============================================================================
-								" Souce Files
-" =============================================================================
-" source ~/.vim/MY-VIMRC/ale.vim
-source ~/.vim/MY-VIMRC/chrisatmachine.vim
-source ~/.vim/MY-VIMRC/coc.vim
-source ~/.vim/MY-VIMRC/commenting.vim
-source ~/.vim/MY-VIMRC/datascience.vim
-source ~/.vim/MY-VIMRC/deoplete.vim
-source ~/.vim/MY-VIMRC/distrotube.vim
-source ~/.vim/MY-VIMRC/duke.vim
-source ~/.vim/MY-VIMRC/easymotion.vim
-source ~/.vim/MY-VIMRC/editing.vim
-source ~/.vim/MY-VIMRC/junegunn.vim
-source ~/.vim/MY-VIMRC/latex.vim
-source ~/.vim/MY-VIMRC/misc.vim
-source ~/.vim/MY-VIMRC/movement.vim
-source ~/.vim/MY-VIMRC/navigation.vim
-source ~/.vim/MY-VIMRC/netrw.vim
-source ~/.vim/MY-VIMRC/powervim.vim
-source ~/.vim/MY-VIMRC/theme.vim
-source ~/.vim/MY-VIMRC/theprimeagen.vim
-source ~/.vim/MY-VIMRC/tpope.vim
-source ~/.vim/MY-VIMRC/supertab.vim
-source ~/.vim/MY-VIMRC/vimbindings.vim
-source ~/.vim/MY-VIMRC/vimspector.vim
-source ~/.vim/MY-VIMRC/vimwiki.vim
-source ~/.vim/MY-VIMRC/whichkey.vim
-if has('nvim')
-  source ~/.vim/MY-VIMRC/lua.vim
-endif
 
-nmap <silent> gx :!open <cWORD><cr>
+colorscheme gruvbox
 
-let g:hardtime_timeout = 2000
+source ~/.vim/MY-VIMRC/telescope.vim
+source ~/.vim/MY-VIMRC/treesitter.vim
+source ~/.vim/MY-VIMRC/lualine.vim
+source ~/.vim/MY-VIMRC/gitsigns.vim
+source ~/.vim/MY-VIMRC/nvim-tree.vim
+source ~/.vim/MY-VIMRC/diffview.vim
+source ~/.vim/MY-VIMRC/comment.vim
+source ~/.vim/MY-VIMRC/toggleterm.vim
+source ~/.vim/MY-VIMRC/bufferline.vim
+source ~/.vim/MY-VIMRC/fugitive.vim
+source ~/.vim/MY-VIMRC/nvim-cmp.vim
 
-nnoremap <Leader>gb :GBranches<CR>
-nnoremap <Leader>gc :GBranches checkout<CR>
-nnoremap <Leader>gd :GBranches delete<CR>
-nnoremap <Leader>gr :GBranches rebase<CR>
+source ~/.vim/MY-VIMRC/lsp.lua
 
-let g:UltiSnipsExpandTrigger = '<C-x>'
-
-" Auto-source vimrc on save
+" source vimrc on save
 augroup vimrcgroup
   autocmd!
   autocmd! bufwritepost ~/.vimrc source %
-  autocmd! bufwritepost ~/.vim/MY-VIMRC/.vimrc source %
+augroup END
+
+" follow quickfix
+augroup quickfixgroup
+	autocmd!
+	autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
 augroup END

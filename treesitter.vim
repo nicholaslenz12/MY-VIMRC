@@ -4,10 +4,4 @@ require'nvim-treesitter.configs'.setup {
 	enable = true,
   },
 }
-
-require('lualine').setup{
-  options = {
-  theme = 'gruvbox',
-  },
-}
 EOF
