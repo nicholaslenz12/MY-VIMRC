@@ -6,6 +6,7 @@ require'lspconfig'.julials.setup {
     vim.keymap.set("n", "<Leader>ld", vim.lsp.buf.definition, {buffer = 0})
     vim.keymap.set("n", "<Leader>ln", vim.lsp.buf.rename, {buffer = 0})
     vim.keymap.set("n", "<Leader>lr", vim.lsp.buf.references, {buffer = 0})
+    vim.keymap.set("n", "<Leader>lt", vim.lsp.buf.workspace_symbol, {buffer = 0})
     vim.lsp.handlers["textDocument/publishDiagnostics"] = function() end
   end
 }

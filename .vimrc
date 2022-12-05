@@ -2,6 +2,7 @@
 set nocompatible                     " don't try to be like vi
 syntax on                            " syntax highlighting
 filetype indent plugin on
+set termguicolors
 
 set ignorecase                       " ignorecase during searches
 set smartcase                        " override ignorecase if capitals in search
@@ -42,6 +43,7 @@ set updatetime=100
 set timeoutlen=1000
 set cursorline                       " can be slow
 set nowrap                           " preference
+set mouse=a
 
 " See http://vimcasts.org/episodes/show-invisibles/
 set listchars=tab:▸\ ,eol:¬,trail:·
@@ -75,6 +77,7 @@ vmap . :norm .<CR>
 
 " shell
 map <Leader>s :!
+map <Leader>d :bd<CR>
 
 " replace
 nnoremap <Leader>rr :%s/\<<C-r><C-w>\>//g<Left><Left>
@@ -87,6 +90,10 @@ map D d$
 nnoremap <C-n> :bn<CR>
 nnoremap <C-p> :bp<CR>
 
+nnoremap <C-.> <C-w>w
+nnoremap <C-,> <C-w>W
+
+nnoremap <Leader>c :noh<CR>
 
 " ---- PLUGINS ----
 if empty(glob('~/.vim/autoload/plug.vim'))
@@ -137,7 +144,6 @@ source ~/.vim/MY-VIMRC/treesitter.vim
 source ~/.vim/MY-VIMRC/lualine.vim
 source ~/.vim/MY-VIMRC/gitsigns.vim
 source ~/.vim/MY-VIMRC/nvim-tree.vim
-source ~/.vim/MY-VIMRC/diffview.vim
 source ~/.vim/MY-VIMRC/comment.vim
 source ~/.vim/MY-VIMRC/toggleterm.vim
 source ~/.vim/MY-VIMRC/bufferline.vim
@@ -157,3 +163,13 @@ augroup quickfixgroup
 	autocmd!
 	autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
 augroup END
+
+" quickfix
+function! ToggleQuickFix()
+    if empty(filter(getwininfo(), 'v:val.quickfix'))
+        copen
+    else
+        cclose
+    endif
+endfunction
+nnoremap <silent> <C-q> :call ToggleQuickFix()<CR>
