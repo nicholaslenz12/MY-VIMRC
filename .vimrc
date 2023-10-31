@@ -108,12 +108,12 @@ Plug 'vimwiki/vimwiki'
 Plug 'tpope/vim-fugitive'
 
 Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
+Plug 'nvim-telescope/telescope.nvim', {'tag': '0.1.0'}
 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'morhetz/gruvbox'
 Plug 'nvim-lualine/lualine.nvim'
-Plug 'akinsho/bufferline.nvim', { 'tag': 'v2.*' }
+Plug 'akinsho/bufferline.nvim', {'tag': '*'}
 
 Plug 'lewis6991/gitsigns.nvim'
 Plug 'sindrets/diffview.nvim'
@@ -122,11 +122,11 @@ Plug 'kyazdani42/nvim-tree.lua'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'numToStr/Comment.nvim'
 Plug 'akinsho/toggleterm.nvim', {'tag' : 'v2.*'}
-Plug 'tversteeg/registers.nvim', { 'branch': 'main' }
+Plug 'tversteeg/registers.nvim', {'branch': 'main'}
 
 Plug 'neovim/nvim-lspconfig'
 Plug 'williamboman/nvim-lsp-installer'
-Plug 'j-hui/fidget.nvim'
+Plug 'j-hui/fidget.nvim', {'tag' : 'legacy'}
 
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
@@ -135,6 +135,7 @@ Plug 'hrsh7th/cmp-path'
 Plug 'L3MON4D3/LuaSnip'
 Plug 'saadparwaiz1/cmp_luasnip'
 
+Plug 'rbong/vim-flog'
 call plug#end()
 
 colorscheme gruvbox
