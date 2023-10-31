@@ -108,7 +108,7 @@ Plug 'vimwiki/vimwiki'
 Plug 'tpope/vim-fugitive'
 
 Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim', {'tag': '0.1.0'}
+Plug 'nvim-telescope/telescope.nvim', {'tag': '0.1.x'}
 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'morhetz/gruvbox'
@@ -121,7 +121,7 @@ Plug 'sindrets/diffview.nvim'
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'numToStr/Comment.nvim'
-Plug 'akinsho/toggleterm.nvim', {'tag' : 'v2.*'}
+Plug 'akinsho/toggleterm.nvim', {'tag' : '*'}
 Plug 'tversteeg/registers.nvim', {'branch': 'main'}
 
 Plug 'neovim/nvim-lspconfig'
