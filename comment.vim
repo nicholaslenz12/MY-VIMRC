@@ -2,10 +2,10 @@ lua << EOF
 require('Comment').setup({
     ignore = '^$',
     toggler = {
-        line = '<leader>/',
+        line = '<leader>c',
     },
     opleader = {
-        line = '<leader>/',
+        line = '<leader>c',
     },
 })
 EOF
