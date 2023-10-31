@@ -174,3 +174,5 @@ function! ToggleQuickFix()
     endif
 endfunction
 nnoremap <silent> <C-q> :call ToggleQuickFix()<CR>
+
+map <A-CR> :ToggleTermSendCurrentLine<CR>j
