@@ -77,7 +77,7 @@ vmap . :norm .<CR>
 
 " shell
 map <Leader>s :!
-map <Leader>d :bd<CR>
+nnoremap <silent> <leader>d :Bdelete<CR>
 
 " replace
 nnoremap <Leader>rr :%s/\<<C-r><C-w>\>//g<Left><Left>
@@ -136,6 +136,7 @@ Plug 'L3MON4D3/LuaSnip'
 Plug 'saadparwaiz1/cmp_luasnip'
 
 Plug 'rbong/vim-flog'
+Plug 'moll/vim-bbye'
 call plug#end()
 
 colorscheme gruvbox
