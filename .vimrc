@@ -151,6 +151,7 @@ source ~/.vim/MY-VIMRC/toggleterm.vim
 source ~/.vim/MY-VIMRC/bufferline.vim
 source ~/.vim/MY-VIMRC/fugitive.vim
 source ~/.vim/MY-VIMRC/nvim-cmp.vim
+source ~/.vim/MY-VIMRC/vim-flog.vim
 
 source ~/.vim/MY-VIMRC/lsp.lua
 
